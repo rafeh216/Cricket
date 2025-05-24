@@ -14,7 +14,7 @@ const getTeams = asyncHandler(async (req, res) => {
 
 
 const getPlayers = asyncHandler(async (req, res) => {
-    conn.query("SELECT P.*, T.team_name FROM PLAYER P JOIN TEAM T ON P.team_id = T.team_id WHERE t.team_name = 'India' LIMIT 5", (err, results) => {
+    conn.query('SELECT P.player_name, T.team_name, PS.t20_matches, PS.t20_runs, PS.t20_batting_avg, PS.t20_strike_rate, PS.t20_wickets, PS.t20_bowling_avg, PS.t20_economy, PS.odi_matches, PS.odi_runs, PS.odi_batting_avg, PS.odi_strike_rate, PS.odi_wickets, PS.odi_bowling_avg, PS.odi_economy, PS.test_matches, PS.test_runs, PS.test_batting_avg, PS.test_strike_rate, PS.test_wickets, PS.test_bowling_avg, PS.test_economy FROM PLAYER P JOIN TEAM T ON P.team_id = T.team_id JOIN player_stats PS ON P.player_id = PS.player_id;', (err, results) => {
         if (err) {
             console.error(err)
             return res.status(500).json({ message: "Problem getting players" })

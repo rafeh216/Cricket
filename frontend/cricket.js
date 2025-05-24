@@ -135,7 +135,7 @@ const getTeams = async () => {
       carouselContainer.innerHTML += html;
     });
 
-    initializeCarousel(); // ✅ Now call it safely after cards exist
+    initializeCarousel(); 
 
   } catch (err) {
     console.error('Error fetching teams:', err);
@@ -287,82 +287,74 @@ function initializeCarousel() {
 }
 
 // PLayers data fetch
-const playerList = document.getElementById('player-list')
-const getPlayers = async (req,res)=>{
-  const response = await axios.get('http://localhost:5000/api/team/player')
-  console.log(response.data);
-  const players = response.data
+const container = document.getElementById("country-players-container");
 
-  players.forEach((player)=>{
-    const html = `
-      <div class="player-card">
+const getPlayers = async (req,res)=>{
+  try {
+    const res = await axios.get("http://localhost:5000/api/team/player"); // your real API
+    const players = res.data;
+
+    // Group players by team_name
+    const grouped = {};
+    players.forEach(p => {
+      if (!grouped[p.team_name]) grouped[p.team_name] = [];
+      grouped[p.team_name].push(p);
+    });
+    console.log(grouped);
+    
+
+    // Loop through teams
+    Object.entries(grouped).forEach(([team, teamPlayers]) => {
+      const section = document.createElement("section");
+      section.className = "country-players-section";
+      section.id = `${team.toLowerCase().replace(/\s/g, '-')}-players`;
+
+      section.innerHTML = `
+        <h2 class="country-name-heading">${team} Players</h2>
+        <div class="player-list">
+          ${teamPlayers.map(player => `
+            <div class="player-card">
               <div class="player-info">
                 <div class="player-picture">
-                  <img src="Sachin_Tendehar.webp" alt="Sachin Tendulkar" />
+                  <img src="${player.player_name}.webp" alt="${player.player_name}" />
                 </div>
                 <h3 class="player-name">${player.player_name}</h3>
-                <p class="player-type">${player.role}</p>
               </div>
               <div class="player-stats-table-container">
                 <table class="player-stats-table">
                   <thead>
                     <tr>
-                      <th>Format</th>
-                      <th>Matches</th>
-                      <th>Runs</th>
-                      <th>Bat Avg</th>
-                      <th>SR</th>
-                      <th>HS</th>
-                      <th>100s</th>
-                      <th>50s</th>
-                      <th>4s</th>
-                      <th>6s</th>
+                      <th>Format</th><th>Matches</th><th>Runs</th><th>Bat Avg</th><th>SR</th>
+                      <th>Wickets</th><th>Bowl Avg</th><th>Econ</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Test</td>
-                      <td>200</td>
-                      <td>15,921</td>
-                      <td>53.78</td>
-                      <td>54.04</td>
-                      <td>248*</td>
-                      <td>51</td>
-                      <td>68</td>
-                      <td>2,058</td>
-                      <td>69</td>
-                    </tr>
-                    <tr>
-                      <td>ODI</td>
-                      <td>463</td>
-                      <td>18,426</td>
-                      <td>44.83</td>
-                      <td>86.23</td>
-                      <td>200*</td>
-                      <td>49</td>
-                      <td>96</td>
-                      <td>2,016</td>
-                      <td>195</td>
-                    </tr>
-                    <tr>
-                      <td>T20I</td>
-                      <td>1</td>
-                      <td>10</td>
-                      <td>10.00</td>
-                      <td>83.33</td>
-                      <td>10</td>
-                      <td>0</td>
-                      <td>0</td>
-                      <td>2</td>
-                      <td>0</td>
-                    </tr>
+                    ${["test", "odi", "t20"].map(format => `
+                      <tr>
+                        <td>${format.toUpperCase()}</td>
+                        <td>${player[`${format}_matches`]}</td>
+                        <td>${player[`${format}_runs`]}</td>
+                        <td>${player[`${format}_batting_avg`] || "-"}</td>
+                        <td>${player[`${format}_strike_rate`] || "-"}</td>
+                        <td>${player[`${format}_wickets`]}</td>
+                        <td>${player[`${format}_bowling_avg`] || "-"}</td>
+                        <td>${player[`${format}_economy`] || "-"}</td>
+                      </tr>
+                    `).join("")}
                   </tbody>
                 </table>
               </div>
             </div>
-    `;
-    playerList.innerHTML+=html
-  })
-  
-}
-getPlayers()
+          `).join("")}
+        </div>
+      `;
+
+      container.appendChild(section);
+    });
+
+  } catch (err) {
+    console.error("Error fetching players:", err);
+  }
+};
+
+getPlayers();
