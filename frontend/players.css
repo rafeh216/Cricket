@@ -1,0 +1,585 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f0f8ff; /* Or use a subtle light gray like #f4f4f4 */
+  color: #333;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header,
+nav,
+footer {
+  flex-shrink: 0;
+}
+
+/* Header Styles (Keep your existing styles) */
+header {
+  background: linear-gradient(
+    135deg,
+    #1a472a,
+    #2b7a4b
+  ); /* Keep your existing gradient */
+  color: white;
+  padding: 20px 0; /* Adjust padding if needed, maybe a bit more vertical padding */
+  text-align: center; /* Keep text centered */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Keep your existing shadow */
+  position: relative;
+  overflow: hidden;
+}
+
+header h1 {
+  /* font-size: 3rem; /* Original */
+  font-size: 3.5em; /* Match welcome-title font size */
+  margin-bottom: 15px; /* Match welcome-title bottom margin */
+  font-weight: bold; /* Ensure bold like welcome-title */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add text shadow like welcome-title */
+  position: relative;
+  z-index: 1;
+  animation: fadeInDown 1s ease;
+}
+
+header p {
+  /* font-size: 1.2rem; /* Original */
+  font-size: 1.4em; /* Match welcome-message font size */
+  max-width: 800px; /* Keep max-width */
+  margin: 0 auto;
+  line-height: 1.6; /* Improve readability like welcome-message */
+  color: #f0f0f0; /* Use the slightly lighter color like welcome-message */
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 1s ease;
+}
+/* Style for the main "ICC TEAM RANKINGS" title */
+.page-title {
+  text-align: center;
+  /* font-size: 2.5em; */
+  /* margin-bottom: 40px; */
+  color: #1a472a;
+  /* font-weight: bold; */
+  /* text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); */
+  text-align: center;
+  /* font-size: 2rem; */
+  margin-bottom: 40px;
+  color: #1a472a;
+  position: relative;
+  animation: fadeIn 1.2s ease;
+  font-size: 3.5em;
+  margin: 0;
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.page-title::after {
+  /* Add the underline pseudo-element */
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: #2b7a4b;
+  border-radius: 2px; /* Rounded ends for the underline */
+}
+/* Cricket ball animation in header (Keep your existing styles) */
+.cricket-ball {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: #cb2026;
+  border-radius: 50%;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+/* Navigation Styles (Keep your existing styles, added .active style) */
+nav {
+  background-color: #ffffff;
+  padding: 15px 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #1a472a;
+  letter-spacing: 1px;
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  margin-left: 30px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #555;
+  font-weight: 600;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  padding: 5px 0;
+  border-bottom: 2px solid transparent;
+}
+
+.menu a:hover,
+.menu a.active {
+  color: #2b7a4b;
+  border-bottom-color: #2b7a4b;
+}
+
+footer {
+  background-color: #1a472a;
+  color: white;
+  padding: 40px 0 20px;
+  margin-top: 80px;
+  animation: fadeIn 2s ease;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 0 20px;
+}
+
+.footer-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-section h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: #6fcf97;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+.social-links {
+  display: flex;
+  margin-top: 15px;
+}
+
+.social-icon {
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.social-icon:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 2.5em;
+    color: #1a472a; /* Dark green color */
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 40px; /* Space below the main title */
+}
+
+.page-title::after { /* Green underline effect */
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #4CAF50; /* Green color */
+    border-radius: 2px;
+}
+
+
+/* --- Country Players Container and Sections --- */
+.country-players-container {
+    display: flex;
+    flex-direction: column; /* Stack country sections vertically */
+    gap: 60px; /* Space between country sections */
+}
+
+.country-players-section {
+    background-color: #ffffff; /* White background for each country section */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    padding: 30px; /* Inner padding */
+}
+
+.country-name-heading {
+    text-align: center;
+    font-size: 1.8em; /* Size for country name headings */
+    color: #1a472a; /* Green color */
+    margin-bottom: 30px; /* Space below country name */
+    font-weight: bold;
+}
+
+
+
+/* --- Player List and Player Card Styling --- */
+.player-list {
+    display: flex;
+    flex-direction: column; /* Stack player cards vertically within a country section */
+    gap: 30px; /* Space between individual player cards */
+}
+
+.player-card {
+    border: 1px solid #eee; /* Light border around each player card */
+    border-radius: 8px; /* Rounded corners for player cards */
+    padding: 20px; /* Inner padding */
+    background-color: #f9f9f9; /* Very light background */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    display: flex; /* Use flexbox to arrange player info and stats */
+    flex-direction: column; /* Stack info and stats vertically by default */
+    gap: 20px; /* Space between player info and stats table */
+}
+
+/* Arrange player info and stats side-by-side on larger screens */
+@media (min-width: 768px) {
+    .player-card {
+        flex-direction: row; /* Arrange side-by-side */
+        align-items: flex-start; /* Align items to the top */
+    }
+
+    .player-info {
+        flex-shrink: 0; /* Prevent player info from shrinking */
+        width: 150px; /* Give player info a fixed width (adjust as needed) */
+        text-align: center; /* Center text within player info */
+    }
+
+    .player-stats-table-container {
+        flex-grow: 1; /* Allow stats table to take up remaining space */
+        overflow-x: auto; /* Enable horizontal scrolling if table is too wide */
+    }
+}
+
+
+/* Player Info Styling */
+.player-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+}
+
+.player-picture img {
+    width: 100px; /* Size of player picture */
+    height: 100px; /* Make it a circle */
+    border-radius: 50%; /* Circular image */
+    object-fit: cover; /* Ensure image covers the area */
+    border: 3px solid #4CAF50; /* Green border around picture */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin-bottom: 10px; /* Space below picture */
+}
+
+.player-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.player-type {
+    font-size: 0.9em;
+    color: #555;
+    text-transform: uppercase;
+}
+
+
+/* --- Player Stats Table Styling --- */
+.player-stats-table {
+    width: 100%; /* Table takes full width of its container */
+    border-collapse: collapse;
+    border: 1px solid #ddd; /* Light border around the table */
+    border-radius: 5px; /* Rounded corners */
+    overflow: hidden; /* Ensures rounded corners work */
+}
+
+.player-stats-table th,
+.player-stats-table td {
+    padding: 10px 12px; /* Padding within cells */
+    text-align: left;
+    border-bottom: 1px solid #eee; /* Light line between rows */
+}
+
+.player-stats-table thead th { /* Table header style */
+    background-color: #388e3c; /* Dark green background */
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+background: linear-gradient(
+    135deg,
+    #1a472a,
+    #2b7a4b
+  );    border: none; /* Remove individual header borders */
+}
+
+.player-stats-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternate row color */
+}
+
+.player-stats-table tbody tr:hover {
+    background-color: #f1f1f1; /* Hover effect on rows */
+}
+
+.player-stats-table td {
+    color: #333;
+}
+
+/* Style for the Format column */
+.player-stats-table td:first-child {
+    font-weight: bold;
+    width: 80px; /* Give Format column a fixed width */
+    flex-shrink: 0; /* Prevent shrinking if using flex on td */
+}
+
+/* Style for the last row's bottom border */
+.player-stats-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 767px) {
+    .players-main-content {
+        padding: 0 15px; /* Reduce padding on smaller screens */
+    }
+
+    .page-title {
+        font-size: 2em; /* Smaller title */
+        margin-bottom: 30px;
+    }
+
+    .country-players-section {
+        padding: 20px; /* Reduce padding */
+    }
+
+    .country-name-heading {
+        font-size: 1.5em; /* Smaller heading */
+        margin-bottom: 20px;
+    }
+
+    .player-card {
+        padding: 15px; /* Reduce player card padding */
+    }
+
+    .player-info {
+         width: 100%; /* Allow player info to take full width */
+         margin-bottom: 15px; /* Space below player info when stacked */
+    }
+
+    .player-picture img {
+        width: 80px; /* Smaller picture */
+        height: 80px;
+    }
+
+    .player-name {
+        font-size: 1.1em;
+    }
+
+    .player-type {
+        font-size: 0.8em;
+    }
+
+    /* Table will automatically handle overflow with scroll */
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatBall {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(15px, 15px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.social-links {
+  display: flex; /* Use flexbox to arrange items */
+  flex-direction: row; /* Arrange items in a row */
+  justify-content: flex-start; /* Align items to the start (left) */
+  align-items: center; /* Vertically center items in the row */
+  margin-top: 15px;
+  gap: 10px; /* Space between icons */
+}
+
+/* Styles for the individual social icon links/containers in the footer */
+.social-icon {
+  width: 36px; /* Size of the circular background */
+  height: 36px;
+  border-radius: 50%; /* Make it circular */
+  display: flex; /* Use flexbox to center the icon inside */
+  align-items: center; /* Center icon vertically */
+  justify-content: center; /* Center icon horizontally */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none; /* Remove underline from link */
+  font-size: 1.6em; /* Size of the icon */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Optional: Add a subtle white border */
+  flex-shrink: 0; /* Prevent icons from shrinking */
+}
+
+/* Specific brand colors for the background in the footer */
+.social-icon.facebook { background-color: #3b5998; }
+.social-icon.twitter { background-color: #1da1f2; }
+.social-icon.linkedin { background-color: #0077b5; }
+.social-icon.instagram { background-color: #c13584; }
+
+/* Set the icon color to white for all social icons in the footer */
+.social-icon i {
+    color: white;
+    transition: color 0.3s ease;
+}
+
+/* Optional: Hover effect - change background to a slightly darker shade */
+.social-icon.facebook:hover { background-color: #2a4988; }
+.social-icon.twitter:hover { background-color: #0d95e8; }
+.social-icon.linkedin:hover { background-color: #005f91; }
+.social-icon.instagram:hover { background-color: #b12574; }
+
+
+/* --- Contact Page Social Icons Styling --- */
+/* Styles for the social icons container on the contact page */
+.social-icons-contact {
+    display: flex; /* Use flexbox to arrange items */
+    flex-direction: row; /* Arrange items in a row */
+    justify-content: flex-start; /* Align items to the start (left) */
+    align-items: center; /* Vertically center items in the row */
+    gap: 15px;
+}
+
+/* Styles for the individual social icon links/containers on the contact page */
+.social-icon-contact {
+    display: inline-flex; /* Use inline-flex */
+    width: 40px; /* Size of the circular background */
+    height: 40px;
+    border-radius: 50%;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    font-size: 1.8em; /* Adjusted size to fill the circle */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Optional: Add a subtle white border */
+    flex-shrink: 0; /* Prevent icons from shrinking */
+}
+
+/* Specific brand colors for the background on the contact page */
+.social-icon-contact.facebook { background-color: #3b5998; }
+.social-icon-contact.twitter { background-color: #1da1f2; }
+.social-icon-contact.linkedin { background-color: #0077b5; }
+.social-icon-contact.instagram { background-color: #c13584; }
+
+/* Set the icon color to white for all social icons on the contact page */
+.social-icon-contact i {
+    color: white;
+    transition: color 0.3s ease;
+}
+
+/* Optional: Hover effect for contact page - change background to a slightly darker shade */
+.social-icon-contact.facebook:hover { background-color: #2a4988; }
+.social-icon-contact.twitter:hover { background-color: #0d95e8; }
+.social-icon-contact.linkedin:hover { background-color: #005f91; }
+.social-icon-contact.instagram:hover { background-color: #b12574; }

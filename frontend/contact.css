@@ -1,0 +1,413 @@
+/* Basic reset and body styles (ensure these match your cricket.css if shared) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f8ff; /* Consistent background color */
+    color: #333;
+    overflow-x: hidden; /* Prevent horizontal scroll on the body */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Ensure header, nav, footer don't shrink */
+header,
+nav,
+footer {
+    flex-shrink: 0;
+}
+
+/* --- Main Content Styling --- */
+.contact-main-content {
+    max-width: 900px; /* Adjust max-width for the contact content */
+    margin: 40px auto; /* Center the main content and add vertical space */
+    padding: 0 20px; /* Add horizontal padding */
+    flex-grow: 1; /* Allow main content to grow and push footer down */
+}
+
+/* Main page title styling (consistent with other page titles) */
+.page-title {
+    text-align: center;
+    font-size: 2.5em;
+    color: #1a472a; /* Dark green color */
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 40px; /* Space below the main title */
+}
+
+.page-title::after { /* Green underline effect */
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #4CAF50; /* Green color */
+    border-radius: 2px;
+}
+
+/* --- Contact Container Styling --- */
+.contact-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    gap: 40px; /* Space between contact info and form */
+    background-color: #ffffff; /* White background for the container */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    padding: 40px; /* Inner padding */
+}
+
+.contact-info,
+.contact-form {
+    flex: 1 1 350px; /* Allow items to grow/shrink with a base of 350px */
+}
+
+/* --- Contact Information Styling --- */
+.info-heading,
+.form-heading {
+    font-size: 1.8em;
+    color: #2b7a4b; /* Green color */
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.contact-info p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.contact-info ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.contact-info ul li {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.contact-info ul li strong {
+    color: #333;
+}
+
+.social-links-contact {
+    margin-top: 30px;
+}
+
+.social-heading {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.social-icons-contact {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icon-contact {
+    display: inline-flex; /* Use inline-flex for centering content */
+    width: 40px; /* Size of social icons */
+    height: 40px;
+    background-color: rgba(76, 175, 80, 0.1); /* Light green background */
+    color: #4CAF50; /* Green icon color */
+    border-radius: 50%; /* Circular icons */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.social-icon-contact:hover {
+    background-color: #4CAF50; /* Green background on hover */
+    color: white; /* White icon color on hover */
+}
+
+
+/* --- Contact Form Styling --- */
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between form groups */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%; /* Make inputs take full width */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group textarea:focus {
+    border-color: #4CAF50; /* Green border on focus */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3); /* Subtle green shadow on focus */
+    outline: none; /* Remove default outline */
+}
+
+textarea {
+    resize: vertical; /* Allow vertical resizing */
+}
+
+.submit-button {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #4CAF50; /* Green button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    align-self: flex-start; /* Align button to the left */
+    margin-top: 10px;
+}
+
+.submit-button:hover {
+    background-color: #388e3c; /* Darker green on hover */
+}
+
+.submit-button:active {
+    transform: scale(0.98); /* Slightly shrink on click */
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 767px) {
+    .contact-main-content {
+        padding: 0 15px; /* Reduce padding on smaller screens */
+    }
+
+    .page-title {
+        font-size: 2em; /* Smaller title */
+        margin-bottom: 30px;
+    }
+
+    .contact-container {
+        padding: 30px; /* Reduce padding */
+        flex-direction: column; /* Stack contact info and form vertically */
+        gap: 30px; /* Adjust gap */
+    }
+
+    .info-heading,
+    .form-heading {
+        font-size: 1.5em; /* Smaller headings */
+        margin-bottom: 15px;
+    }
+
+    .submit-button {
+         width: 100%; /* Full width button on small screens */
+         align-self: stretch; /* Stretch to fill container */
+    }
+}
+
+/* Add any other shared styles from cricket.css here if they are needed on this page */
+/* For example, styles for the footer if not already linked */
+/*
+footer {
+    background-color: #1a472a;
+    color: white;
+    padding: 40px 0 20px;
+    margin-top: 80px;
+}
+... rest of footer styles ...
+*/
+footer {
+  background-color: #1a472a;
+  color: white;
+  padding: 40px 0 20px;
+  margin-top: 80px;
+  animation: fadeIn 2s ease;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 0 20px;
+}
+
+.footer-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-section h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: #6fcf97;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+.social-links {
+  display: flex;
+  margin-top: 15px;
+}
+
+.social-icon {
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.social-icon:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+/* Styles for the social icons container */
+.social-links {
+  display: flex; /* Use flexbox to arrange items */
+  flex-direction: row; /* Arrange items in a row */
+  justify-content: flex-start; /* Align items to the start (left) */
+  align-items: center; /* Vertically center items in the row */
+  margin-top: 15px;
+  gap: 10px; /* Space between icons */
+}
+
+/* Styles for the individual social icon links/containers in the footer */
+.social-icon {
+  width: 36px; /* Size of the circular background */
+  height: 36px;
+  border-radius: 50%; /* Make it circular */
+  display: flex; /* Use flexbox to center the icon inside */
+  align-items: center; /* Center icon vertically */
+  justify-content: center; /* Center icon horizontally */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none; /* Remove underline from link */
+  font-size: 1.6em; /* Size of the icon */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Optional: Add a subtle white border */
+  flex-shrink: 0; /* Prevent icons from shrinking */
+}
+
+/* Specific brand colors for the background in the footer */
+.social-icon.facebook { background-color: #3b5998; }
+.social-icon.twitter { background-color: #1da1f2; }
+.social-icon.linkedin { background-color: #0077b5; }
+.social-icon.instagram { background-color: #c13584; }
+
+/* Set the icon color to white for all social icons in the footer */
+.social-icon i {
+    color: white;
+    transition: color 0.3s ease;
+}
+
+/* Optional: Hover effect - change background to a slightly darker shade */
+.social-icon.facebook:hover { background-color: #2a4988; }
+.social-icon.twitter:hover { background-color: #0d95e8; }
+.social-icon.linkedin:hover { background-color: #005f91; }
+.social-icon.instagram:hover { background-color: #b12574; }
+
+
+/* --- Contact Page Social Icons Styling --- */
+/* Styles for the social icons container on the contact page */
+.social-icons-contact {
+    display: flex; /* Use flexbox to arrange items */
+    flex-direction: row; /* Arrange items in a row */
+    justify-content: flex-start; /* Align items to the start (left) */
+    align-items: center; /* Vertically center items in the row */
+    gap: 15px;
+}
+
+/* Styles for the individual social icon links/containers on the contact page */
+.social-icon-contact {
+    display: inline-flex; /* Use inline-flex */
+    width: 40px; /* Size of the circular background */
+    height: 40px;
+    border-radius: 50%;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    font-size: 1.8em; /* Adjusted size to fill the circle */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Optional: Add a subtle white border */
+    flex-shrink: 0; /* Prevent icons from shrinking */
+}
+
+/* Specific brand colors for the background on the contact page */
+.social-icon-contact.facebook { background-color: #3b5998; }
+.social-icon-contact.twitter { background-color: #1da1f2; }
+.social-icon-contact.linkedin { background-color: #0077b5; }
+.social-icon-contact.instagram { background-color: #c13584; }
+
+/* Set the icon color to white for all social icons on the contact page */
+.social-icon-contact i {
+    color: white;
+    transition: color 0.3s ease;
+}
+
+/* Optional: Hover effect for contact page - change background to a slightly darker shade */
+.social-icon-contact.facebook:hover { background-color: #2a4988; }
+.social-icon-contact.twitter:hover { background-color: #0d95e8; }
+.social-icon-contact.linkedin:hover { background-color: #005f91; }
+.social-icon-contact.instagram:hover { background-color: #b12574; }

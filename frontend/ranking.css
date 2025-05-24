@@ -1,0 +1,584 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f0f8ff;
+  color: #333;
+  overflow-x: hidden;
+  /* Added for full height layout */
+  display: flex; /* Make body a flex container */
+  flex-direction: column; /* Stack children vertically */
+  min-height: 100vh; /* Ensure body takes at least full viewport height */
+}
+
+header,
+nav {
+  flex-shrink: 0;
+}
+
+/* Header Styles */
+header {
+  background: linear-gradient(
+    135deg,
+    #1a472a,
+    #2b7a4b
+  ); /* Keep your existing gradient */
+  color: white;
+  padding: 20px 0; /* Adjust padding if needed, maybe a bit more vertical padding */
+  text-align: center; /* Keep text centered */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Keep your existing shadow */
+  position: relative;
+  overflow: hidden;
+}
+
+header h1 {
+  /* font-size: 3rem; /* Original */
+  font-size: 3.5em; /* Match welcome-title font size */
+  margin-bottom: 15px; /* Match welcome-title bottom margin */
+  font-weight: bold; /* Ensure bold like welcome-title */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add text shadow like welcome-title */
+  position: relative;
+  z-index: 1;
+  animation: fadeInDown 1s ease;
+}
+
+header p {
+  /* font-size: 1.2rem; /* Original */
+  font-size: 1.4em; /* Match welcome-message font size */
+  max-width: 800px; /* Keep max-width */
+  margin: 0 auto;
+  line-height: 1.6; /* Improve readability like welcome-message */
+  color: #f0f0f0; /* Use the slightly lighter color like welcome-message */
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 1s ease;
+}
+
+/* Cricket ball animation in header */
+.cricket-ball {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: #cb2026;
+  border-radius: 50%;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+
+/* Navigation Styles */
+nav {
+  background-color: #ffffff; /* Keep white or try a subtle off-white */
+  padding: 15px 0; /* Existing padding */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Enhanced box shadow */
+  animation: fadeIn 1s ease;
+  position: sticky; /* Make the navbar sticky at the top */
+  top: 0; /* Stick to the top */
+  z-index: 1000; /* Ensure it stays above other content */
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logo {
+  font-size: 1.8rem; /* Slightly larger font size */
+  font-weight: bold;
+  color: #1a472a; /* Dark green color */
+  letter-spacing: 1px; /* Add slight letter spacing */
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+  margin: 0; /* Ensure no default margin */
+  padding: 0; /* Ensure no default padding */
+}
+
+.menu li {
+  margin-left: 30px; /* Increased space between menu items */
+}
+
+.menu a {
+  text-decoration: none;
+  color: #555; /* Slightly darker grey for better contrast */
+  font-weight: 600; /* Make font weight a bit bolder */
+  transition: color 0.3s ease, border-bottom 0.3s ease; /* Smooth transition for color and underline */
+  padding: 5px 0; /* Add vertical padding for clickable area */
+  border-bottom: 2px solid transparent; /* Add a transparent bottom border for the underline effect */
+}
+
+.menu a:hover,
+.menu a.active {
+  /* Style for both hover and an active link */
+  color: #2b7a4b; /* Hover/active color */
+  border-bottom-color: #2b7a4b; /* Underline color on hover/active */
+}
+
+/* Main Content Styles */
+main {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.section-title {
+  text-align: center;
+  /* font-size: 2.5em; */
+  /* margin-bottom: 40px; */
+  color: #1a472a;
+  /* font-weight: bold; */
+  /* text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); */
+  text-align: center;
+  /* font-size: 2rem; */
+  margin-bottom: 40px;
+  color: #1a472a;
+  position: relative;
+  animation: fadeIn 1.2s ease;
+  font-size: 3.5em;
+  margin: 0;
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: #2b7a4b;
+  border-radius: 2px;
+}
+
+/* Style for Format Tabs */
+/* Add these rules to your existing cricket.css file */
+
+/* --- Rankings Section Styling --- */
+/* Added styling for the overall rankings container for better visual separation */
+.rankings-section {
+  margin-top: 40px; /* Space above the section */
+  padding: 20px; /* Inner spacing */
+  background-color: #ffffff; /* White background for the rankings area */
+  border-radius: 8px; /* Slightly rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.rankings-section .section-title {
+  text-align: center;
+  /* color: #333; */
+  margin-bottom: 20px;
+  /* Optional: Add some styling to the title if desired */
+  /* font-size: 1.8em; */
+  /* font-weight: bold; */
+}
+
+/* --- Format Tabs Styling --- */
+.format-tabs {
+  display: flex;
+  justify-content: center; /* Center the format tabs */
+  margin-bottom: 20px;
+  border-bottom: 2px solid #eee; /* A slightly thicker and lighter line */
+  padding-bottom: 5px; /* Space between tabs and the bottom line */
+}
+
+.format-tab {
+  padding: 10px 25px; /* Increased horizontal padding for larger tabs */
+  cursor: pointer;
+  border: 1px solid #ccc; /* Light border */
+  border-bottom: none; /* No bottom border for the tab itself */
+  margin: 0 5px; /* Space between tabs */
+  background-color: #f8f8f8; /* Very light gray background for inactive tabs */
+  border-top-left-radius: 6px; /* Slightly more rounded corners */
+  border-top-right-radius: 6px;
+  transition: all 0.3s ease; /* Smooth transition for visual changes */
+  font-size: 1.1em; /* Slightly larger font size */
+  color: #555; /* Default text color */
+  text-transform: uppercase; /* Uppercase text */
+}
+
+.format-tab:hover {
+  background-color: #e2e2e2;
+}
+
+/* Active Format Tab - Matches the prominent green in your image */
+.format-tab.active {
+  border-color: #2b7a4b; /* Green border color */
+  border-bottom-color: #ffffff; /* Border color matches background to create the "selected" look */
+  background-color: #2b7a4b; /* Green background */
+  color: white; /* White text */
+  font-weight: bold;
+  /* Added a subtle shadow or lift effect to the active tab */
+  box-shadow: 0 -2px 5px rgba(0, 123, 255, 0.2),
+    0 2px 5px rgba(0, 123, 255, 0.1);
+}
+
+/* --- Category Tabs Styling --- */
+.category-tabs {
+    display: flex;
+    /* Change from flex-start to center to center the tabs */
+    justify-content: center;
+    margin-bottom: 15px; /* Space below category tabs */
+    border-bottom: 1px solid #eee; /* Subtle line below category tabs */
+    padding-bottom: 5px;
+}
+
+.category-tab {
+  padding: 8px 18px; /* Adjusted padding */
+  cursor: pointer;
+  border: 1px solid #ddd; /* Lighter border */
+  border-bottom: none;
+  margin-right: 8px; /* Space between category tabs */
+  background-color: #f1f1f1; /* Light gray background */
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  transition: all 0.3s ease;
+  font-size: 1em;
+  color: #666; /* Default text color */
+}
+
+.category-tab:hover {
+  background-color: #e2e2e2; /* Darker gray on hover */
+}
+
+/* Active Category Tab - Matches the darker green/greyish green in your image */
+.category-tab.active {
+  border-color: #2b7a4b; /* A shade of green for the border */
+  border-bottom-color: #ffffff; /* Blend with content background */
+  background-color: #2b7a4b; /* Darker green background */
+  color: white; /* White text */
+  font-weight: bold;
+}
+
+/* --- Content Area and Table Styling --- */
+
+/* Hide content divs by default (essential for tabs) */
+.rankings-content,
+.category-content {
+  display: none;
+}
+
+/* Show the active content div */
+.rankings-content.active,
+.category-content.active {
+  display: block;
+  padding: 10px 0;
+}
+
+/* Table Styling */
+.rankings-table {
+  /* Set a maximum width for the table, adjust the percentage as needed */
+  max-width: 600px; /* Or use a percentage like 80% */
+  width: 100%; /* Ensures it's responsive and doesn't exceed the container */
+  border-collapse: collapse;
+  /* Center the table horizontally and add vertical margin */
+  margin: 20px auto;
+  border: 1px solid #ddd; /* Add a border around the table */
+  border-radius: 5px; /* Rounded corners for the table */
+  overflow: hidden; /* Ensures rounded corners are applied correctly */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow for the table */
+}
+
+/* Table Header - Matches the gradient/darker green in your image */
+.rankings-table thead th {
+  background-color: #388e3c; /* A shade of dark green */
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase; /* Uppercase headers */
+  letter-spacing: 0.5px;
+  /* Added a subtle linear gradient for a more polished look */
+  background: linear-gradient(135deg, #1a472a, #2b7a4b);
+  padding: 25px 15px; /* Consistent padding with body cells */
+  border: none; /* Remove individual header borders if table has outer border */
+}
+
+.rankings-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Very light alternate row color */
+}
+
+.rankings-table tbody tr:hover {
+  background-color: #f1f1f1; /* Highlight row on hover */
+}
+
+.rankings-table td {
+  border-bottom: 1px solid #eee; /* Lighter line between rows */
+  padding: 25px 15px; /* More padding for better spacing */
+  color: #333; /* Darker text color for content */
+}
+
+/* Style for the last row's bottom border */
+.rankings-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.rankings-table .pos {
+  font-weight: bold;
+  width: 60px; /* Increased width for position column */
+  text-align: center; /* Center position text */
+  color: #000000; /* Slightly muted color for position */
+}
+
+.rankings-table .team {
+  display: flex; /* Use flexbox to align flag and name */
+  align-items: center; /* Vertically center the items */
+}
+
+.rankings-table .team-flag {
+  width: 28px; /* Slightly larger flags */
+  height: 18px; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensure image covers the area without distortion */
+  margin-right: 10px; /* More space between flag and name */
+  border: 1px solid #eee; /* Small border around flag */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow on flag */
+  border-radius: 2px; /* Small radius for flag corners */
+}
+
+.rankings-table .team-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.rankings-table .players .player-name {
+  color: #555; /* Slightly muted color for first name */
+  margin-right: 4px; /* Space between first and last name */
+}
+
+.rankings-table .players .player-surname {
+  font-weight: bold;
+  color: #333; /* Darker color for surname */
+}
+
+.rankings-table .rating {
+  font-weight: bold;
+  color: #cb2026; /* Highlight rating with a distinct color (blue) */
+  text-align: center; /* Center rating text */
+  width: 90px; /* Increased width for rating column */
+  font-size: 1.1em; /* Slightly larger rating text */
+}
+
+/* Footer Styles */
+footer {
+  background-color: #1a472a;
+  color: white;
+  padding: 40px 0 20px;
+  margin-top: 80px;
+  animation: fadeIn 2s ease;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 0 20px;
+}
+
+.footer-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-section h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: #6fcf97;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+.social-links {
+  display: flex;
+  margin-top: 15px;
+}
+
+.social-icon {
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.social-icon:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatBall {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(15px, 15px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.social-links {
+  display: flex; /* Use flexbox to arrange items */
+  flex-direction: row; /* Arrange items in a row */
+  justify-content: flex-start; /* Align items to the start (left) */
+  align-items: center; /* Vertically center items in the row */
+  margin-top: 15px;
+  gap: 10px; /* Space between icons */
+}
+
+/* Styles for the individual social icon links/containers in the footer */
+.social-icon {
+  width: 36px; /* Size of the circular background */
+  height: 36px;
+  border-radius: 50%; /* Make it circular */
+  display: flex; /* Use flexbox to center the icon inside */
+  align-items: center; /* Center icon vertically */
+  justify-content: center; /* Center icon horizontally */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none; /* Remove underline from link */
+  font-size: 1.6em; /* Size of the icon */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Optional: Add a subtle white border */
+  flex-shrink: 0; /* Prevent icons from shrinking */
+}
+
+/* Specific brand colors for the background in the footer */
+.social-icon.facebook { background-color: #3b5998; }
+.social-icon.twitter { background-color: #1da1f2; }
+.social-icon.linkedin { background-color: #0077b5; }
+.social-icon.instagram { background-color: #c13584; }
+
+/* Set the icon color to white for all social icons in the footer */
+.social-icon i {
+    color: white;
+    transition: color 0.3s ease;
+}
+
+/* Optional: Hover effect - change background to a slightly darker shade */
+.social-icon.facebook:hover { background-color: #2a4988; }
+.social-icon.twitter:hover { background-color: #0d95e8; }
+.social-icon.linkedin:hover { background-color: #005f91; }
+.social-icon.instagram:hover { background-color: #b12574; }
+
+
+/* --- Contact Page Social Icons Styling --- */
+/* Styles for the social icons container on the contact page */
+.social-icons-contact {
+    display: flex; /* Use flexbox to arrange items */
+    flex-direction: row; /* Arrange items in a row */
+    justify-content: flex-start; /* Align items to the start (left) */
+    align-items: center; /* Vertically center items in the row */
+    gap: 15px;
+}
+
+/* Styles for the individual social icon links/containers on the contact page */
+.social-icon-contact {
+    display: inline-flex; /* Use inline-flex */
+    width: 40px; /* Size of the circular background */
+    height: 40px;
+    border-radius: 50%;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    font-size: 1.8em; /* Adjusted size to fill the circle */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Optional: Add a subtle white border */
+    flex-shrink: 0; /* Prevent icons from shrinking */
+}
+
+/* Specific brand colors for the background on the contact page */
+.social-icon-contact.facebook { background-color: #3b5998; }
+.social-icon-contact.twitter { background-color: #1da1f2; }
+.social-icon-contact.linkedin { background-color: #0077b5; }
+.social-icon-contact.instagram { background-color: #c13584; }
+
+/* Set the icon color to white for all social icons on the contact page */
+.social-icon-contact i {
+    color: white;
+    transition: color 0.3s ease;
+}
+
+/* Optional: Hover effect for contact page - change background to a slightly darker shade */
+.social-icon-contact.facebook:hover { background-color: #2a4988; }
+.social-icon-contact.twitter:hover { background-color: #0d95e8; }
+.social-icon-contact.linkedin:hover { background-color: #005f91; }
+.social-icon-contact.instagram:hover { background-color: #b12574; }

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="logo.png">
+  <title>Cricket Nations - Landing Page</title>
+  <link rel="stylesheet" href="cricket.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+  <header>
+    <div class="cricket-ball" style="top: 20%; left: 10%"></div>
+    <div class="cricket-ball" style="top: 60%; left: 80%"></div>
+    <div class="cricket-ball" style="top: 30%; left: 60%"></div>
+    <h1>Cricket Nations</h1>
+    <p>
+      Explore the rich heritage and exciting world of international cricket
+    </p>
+  </header>
+
+  <nav>
+    <div class="nav-container">
+      <div class="logo">CricketNations</div>
+      <ul class="menu">
+        <li><a href="cricket.html" class="active">Home</a></li>
+        <li><a href="players.html">Players</a></li>
+        <li><a href="teamrank.html">Team Ranking</a></li>
+        <li><a href="ranking.html">Player Ranking</a></li>
+        <li><a href="fixtures.html">Fixtures</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="welcome-section">
+    <div class="cricket-ball" style="top: 15%; left: 5%"></div>
+    <div class="cricket-ball" style="top: 70%; left: 25%"></div>
+    <div class="cricket-ball" style="top: 30%; right: 10%"></div>
+    <div class="cricket-ball" style="bottom: 10%; right: 30%"></div>
+    <div class="cricket-ball" style="top: 45%; left: 50%"></div>
+    <div class="welcome-text">
+      <h1 class="welcome-title">Step into the Cricket Arena!</h1>
+      <p class="welcome-message">Where every run counts and every match is a story waiting to be told</p>
+      <button class="explore-button">Explore Now</button>
+    </div>
+    <div class="welcome-image">
+      <img src="realw.webp" alt="Welcoming Image">
+    </div>
+  </div>
+  </div>
+
+  <main>
+    <h2 class="section-title">Top Cricket Nations</h2>
+
+    <div class="carousel-container">
+      <div class="carousel" id="carousel-container">
+      </div>
+
+      <div class="carousel-arrow carousel-arrow-left">❮</div>
+      <div class="carousel-arrow carousel-arrow-right">❯</div>
+
+      <div class="carousel-indicator">
+        <div class="carousel-dot active"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+      </div>
+    </div>
+
+    <section class="carousel-section">
+      <h2 class="carousel-heading">The Fabulous Four</h2>
+
+      <div class="carousel-container">
+        <div class="carousel">
+          <div class="carousel-card">
+            <div class="fab-badge">Fab 4</div>
+            <div class="card-image">
+              <img src="Vk1.webp" alt="Virat Kohli">
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">Virat Kohli</h3>
+              <p class="card-description">
+                The modern master known for run chases and passion.
+              </p>
+              <div class="card-stats">
+                <span>Test Runs: 8500+</span>
+                <span>ODI Runs: 13000+</span>
+                <span>T20 Runs: 4000+</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-card">
+            <div class="fab-badge">Fab 4</div>
+            <div class="card-image">
+              <img src="SS.jpg" alt="Steve Smith">
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">Steve Smith</h3>
+              <p class="card-description">
+                Australia's rock with an unbelievable Test average.
+              </p>
+              <div class="card-stats">
+                <span>Test Runs: 9500+</span>
+                <span>ODI Runs: 5000+</span>
+                <span>T20 Runs: 1000+</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-card">
+            <div class="fab-badge">Fab 4</div>
+            <div class="card-image">
+              <img src="JR.webp" alt="Joe Root">
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">Joe Root</h3>
+              <p class="card-description">
+                England's stylish run machine across formats.
+              </p>
+              <div class="card-stats">
+                <span>Test Runs: 11000+</span>
+                <span>ODI Runs: 6000+</span>
+                <span>T20 Runs: 1000+</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-card">
+            <div class="fab-badge">Fab 4</div>
+            <div class="card-image">
+              <img src="KW!.png" alt="Kane Williamson">
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">Kane Williamson</h3>
+              <p class="card-description">
+                Calm, composed genius leading New Zealand to glory.
+              </p>
+              <div class="card-stats">
+                <span>Test Runs: 8500+</span>
+                <span>ODI Runs: 6500+</span>
+                <span>T20 Runs: 2500+</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-arrow carousel-arrow-left">❮</div>
+        <div class="carousel-arrow carousel-arrow-right">❯</div>
+
+        <div class="carousel-indicator">
+          <div class="carousel-dot active"></div>
+          <div class="carousel-dot"></div>
+          <div class="carousel-dot"></div>
+          <div class="carousel-dot"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3 class="feature-title">Live Rankings</h3>
+        <p class="feature-description">
+          Stay updated with the latest ICC rankings for teams, batsmen, and
+          bowlers from around the world.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🏆</div>
+        <h3 class="feature-title">Tournament Coverage</h3>
+        <p class="feature-description">
+          Comprehensive coverage of international tournaments including World
+          Cups, Champions Trophy, and bilateral series.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3 class="feature-title">Player Statistics</h3>
+        <p class="feature-description">
+          Detailed player statistics, career summaries, and performance
+          analysis for cricket stars worldwide.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>About Us</h3>
+        <p>
+          Cricket Nations is your premier destination for cricket news,
+          statistics, and analysis from around the world.
+        </p>
+        <div class="social-links">
+          <a href="#" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-icon linkedin"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="cricket.html" class="active">Home</a></li>
+          <li><a href="players.html">Players</a></li>
+          <li><a href="teamrank.html">Team Ranking</a></li>
+          <li><a href="ranking.html">Player Ranking</a></li>
+          <li><a href="fixtures.html">Fixtures</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Contact Info</h3>
+        <ul class="footer-links">
+          <li>Email: cricketnations@gmail.com</li>
+          <li>Phone: +92 317 0500 728 </li>
+          <li>Address: Rawalpindi, Pakistan</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="copyright">
+      &copy; 2025 Cricket Nations. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="cricket.js"></script>
+</body>
+
+</html>

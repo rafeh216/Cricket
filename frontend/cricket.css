@@ -1,0 +1,959 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f0f8ff;
+  color: #333;
+  overflow-x: hidden;
+  /* Added for full height layout */
+  display: flex; /* Make body a flex container */
+  flex-direction: column; /* Stack children vertically */
+  min-height: 100vh; /* Ensure body takes at least full viewport height */
+}
+
+/* Welcoming Section Styles */
+.welcome-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: #4CAF50;  Keep or replace with gradient/image */
+  background: linear-gradient(135deg, #1a472a, #2b7a4b);
+  /* Example Gradient */
+  color: white;
+  padding: 80px 50px; /* Increase top/bottom padding for more vertical space within the section */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  flex-grow: 1;
+  overflow: hidden; /* Hide anything that overflows, especially important if using background images */
+  position: relative; /* Needed for potential pseudo-elements or absolute positioning */
+}
+
+header,
+nav {
+  flex-shrink: 0;
+}
+
+/* Optional: Add a subtle pattern or texture overlay */
+.welcome-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-image: url("your-subtle-pattern.png"); Replace with your image path */
+  background-size: cover;
+  opacity: 0.1; /* Adjust opacity */
+  z-index: 1;
+}
+.welcome-text {
+  flex: 1;
+  text-align: left;
+  padding-right: 30px; /* Add some space between text and image */
+  z-index: 2; /* Ensure text is above the overlay */
+}
+
+.welcome-title {
+  font-size: 3.5em; /* Increase font size */
+  margin: 0;
+  margin-bottom: 15px; /* Add space below title */
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add text shadow */
+}
+
+.welcome-message {
+  font-size: 1.4em; /* Increase font size */
+  margin: 20px 0;
+  line-height: 1.6; /* Improve readability */
+  color: #f0f0f0; /* Slightly lighter color */
+  z-index: 2; /* Ensure text is above the overlay */
+}
+
+.welcome-image {
+  flex: 0 0 55%; /* Adjust width for the image section */
+  max-width: 55%; /* Ensure it doesn't exceed 45% */
+  margin-left: 30px; /* Increase space between text and image */
+  z-index: 2; /* Ensure image is above the overlay */
+}
+
+.welcome-image img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Add shadow to image */
+}
+
+.explore-button {
+  display: inline-block;
+  padding: 15px 35px; /* Adjust padding */
+  background-color: #ffd700; /* Gold color */
+  color: #333;
+  text-decoration: none;
+  border-radius: 30px; /* Make it more rounded */
+  font-size: 1.2em; /* Increase font size */
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Add transform to transition */
+  border: none; /* Remove default button border */
+  cursor: pointer; /* Indicate it's clickable */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow to button */
+  z-index: 2; /* Ensure button is above the overlay */
+}
+
+.explore-button:hover {
+  background-color: #e6c300; /* Darker gold on hover */
+  transform: translateY(-3px); /* Lift button slightly on hover */
+}
+
+/* Header Styles */
+header {
+  background: linear-gradient(135deg, #1a472a, #2b7a4b); /* Keep your existing gradient */
+  color: white;
+  padding: 20px 0; /* Adjust padding if needed, maybe a bit more vertical padding */
+  text-align: center; /* Keep text centered */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Keep your existing shadow */
+  position: relative;
+  overflow: hidden;
+}
+
+header h1 {
+  /* font-size: 3rem; /* Original */
+  font-size: 3.5em; /* Match welcome-title font size */
+  margin-bottom: 15px; /* Match welcome-title bottom margin */
+  font-weight: bold; /* Ensure bold like welcome-title */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add text shadow like welcome-title */
+  position: relative;
+  z-index: 1;
+  animation: fadeInDown 1s ease;
+}
+
+header p {
+  /* font-size: 1.2rem; /* Original */
+  font-size: 1.4em; /* Match welcome-message font size */
+  max-width: 800px; /* Keep max-width */
+  margin: 0 auto;
+  line-height: 1.6; /* Improve readability like welcome-message */
+  color: #f0f0f0; /* Use the slightly lighter color like welcome-message */
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 1s ease;
+}
+
+/* Cricket ball animation in header */
+.cricket-ball {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: #cb2026;
+  border-radius: 50%;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+/* Navigation Styles */
+nav {
+  background-color: #ffffff; /* Keep white or try a subtle off-white */
+  padding: 15px 0; /* Existing padding */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Enhanced box shadow */
+  animation: fadeIn 1s ease;
+  position: sticky; /* Make the navbar sticky at the top */
+  top: 0; /* Stick to the top */
+  z-index: 1000; /* Ensure it stays above other content */
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logo {
+  font-size: 1.8rem; /* Slightly larger font size */
+  font-weight: bold;
+  color: #1a472a; /* Dark green color */
+  letter-spacing: 1px; /* Add slight letter spacing */
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+  margin: 0; /* Ensure no default margin */
+  padding: 0; /* Ensure no default padding */
+}
+
+.menu li {
+  margin-left: 30px; /* Increased space between menu items */
+}
+
+.menu a {
+  text-decoration: none;
+  color: #555; /* Slightly darker grey for better contrast */
+  font-weight: 600; /* Make font weight a bit bolder */
+  transition: color 0.3s ease, border-bottom 0.3s ease; /* Smooth transition for color and underline */
+  padding: 5px 0; /* Add vertical padding for clickable area */
+  border-bottom: 2px solid transparent; /* Add a transparent bottom border for the underline effect */
+}
+
+.menu a:hover,
+.menu a.active { /* Style for both hover and an active link */
+  color: #2b7a4b; /* Hover/active color */
+  border-bottom-color: #2b7a4b; /* Underline color on hover/active */
+}
+
+/* Main Content Styles */
+main {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #1a472a;
+  position: relative;
+  animation: fadeIn 1.2s ease;
+  font-size: 3.5em; /* Increase font size */
+  margin: 0;
+  margin-bottom: 15px; /* Add space below title */
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: #2b7a4b;
+  border-radius: 2px;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 60px;
+  animation: fadeIn 1.8s ease;
+}
+
+.feature-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  color: #2b7a4b;
+  margin-bottom: 20px;
+}
+
+.feature-title {
+  font-size: 1.3rem;
+  color: #1a472a;
+  margin-bottom: 15px;
+}
+
+.feature-description {
+  color: #666;
+}
+
+/* Footer Styles */
+footer {
+  background-color: #1a472a;
+  color: white;
+  padding: 40px 0 20px;
+  margin-top: 80px;
+  animation: fadeIn 2s ease;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 0 20px;
+}
+
+.footer-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-section h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: #6fcf97;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+/* .social-links {
+  display: flex;
+  margin-top: 15px;
+}
+
+.social-icon {
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.social-icon:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+} */
+
+.copyright {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.carousel-card-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color from the card */
+    display: block; /* Make the link block-level to cover the card */
+}
+
+/* Optional: Add a hover effect to the card when it's a link */
+.carousel-card-link .carousel-card:hover {
+    transform: translateY(-5px); /* Example: Lift the card slightly on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Example: Stronger shadow on hover */
+}
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatBall {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(15px, 15px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  header h1 {
+    font-size: 2.2rem;
+  }
+
+  header p {
+    font-size: 1rem;
+  }
+
+  .menu {
+    display: none;
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+
+  .carousel-card {
+    min-width: 250px;
+    height: 360px;
+  }
+
+  .carousel-card.active {
+    height: 380px;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-section {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+    padding: 50px 20px;
+    text-align: center; /* Center text on smaller screens */
+  }
+
+  .welcome-text {
+    padding-right: 0;
+    margin-bottom: 30px; /* Add space between text and image */
+  }
+
+  .welcome-image {
+    flex: 0 0 80%; /* Make image wider on smaller screens */
+    max-width: 80%;
+    margin-left: 0;
+  }
+
+  .welcome-title {
+    font-size: 2.5em;
+  }
+
+  .welcome-message {
+    font-size: 1.1em;
+  }
+
+  .explore-button {
+    padding: 12px 30px;
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .nav-container {
+    flex-direction: column; /* Stack logo and menu vertically on smaller screens */
+    align-items: flex-start; /* Align items to the start */
+  }
+
+  .logo {
+    margin-bottom: 15px; /* Add space below logo when stacked */
+  }
+
+  .menu {
+    flex-direction: column; /* Stack menu items vertically */
+    width: 100%; /* Make menu take full width */
+  }
+
+  .menu li {
+    margin-left: 0;
+    margin-bottom: 10px; /* Add space between stacked menu items */
+    width: 100%; /* Make list items take full width */
+    text-align: left; /* Align text to the left */
+  }
+
+  .menu a {
+    padding: 10px 0; /* Increase padding for easier tapping */
+    display: block; /* Make links block level to fill width */
+    border-bottom: none; /* Remove underline for stacked links */
+  }
+
+   .menu a:hover,
+   .menu a.active {
+        border-bottom-color: transparent; /* No underline on hover/active when stacked */
+        background-color: #f0f0f0; /* Subtle background change on hover/active */
+   }
+  }
+
+  /* Merged and Beautified Carousel Styles */
+
+/* Improved carousel container to fit larger cards */
+.carousel-container {
+  position: relative;
+  /* Merged from both definitions */
+  max-width: 1200px; /* Using the larger value */
+  margin: 0 auto;
+  overflow: hidden;
+  /* Merged from both definitions */
+  padding: 50px 0; /* Using the larger value */
+  animation: fadeIn 1.5s ease;
+  perspective: 1000px;
+  /* Added for potential future use, though overflow: hidden is already there */
+  /* isolation: isolate; */
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease;
+  /* Merged from both definitions - Use a consistent height */
+  height: 480px; /* Using the larger value from the user's second block */
+  align-items: center;
+  position: relative;
+}
+
+.carousel-card {
+  /* Merged from all three definitions */
+  min-width: 360px; /* Using the larger value */
+  /* height: 420px; Merged - Use a consistent height, potentially controlled by content */
+  /* Let the height be somewhat determined by content and alignment */
+  margin: 0 15px; /* Using the larger margin */
+  background-color: white;
+  border-radius: 12px;
+  /* Merged box-shadow - using a slightly more pronounced default shadow */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* Merged transition */
+  transition: all 0.4s ease-in-out; /* Slightly adjusted transition timing */
+  /* Merged opacity and transform */
+  opacity: 0.8; /* Slightly increased default opacity */
+  transform: scale(0.95); /* Slightly increased default scale */
+  position: relative;
+  /* Added - subtle border */
+  border: 1px solid #eee;
+}
+
+.carousel-card.active {
+  /* Merged from both definitions */
+  transform: scale(1.05);
+  opacity: 1;
+  z-index: 5;
+  /* Merged box-shadow - making the active shadow more prominent */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  /* height: 440px; Merged - Let height be consistent with default */
+  /* Added - Subtle active border color */
+  border-color: #2b7a4b;
+}
+
+.carousel-card:hover {
+  /* Merged from definition */
+  transform: scale(1.05);
+  opacity: 1;
+  z-index: 5;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25); /* Slightly stronger hover shadow */
+   border-color: #2b7a4b; /* Match active border color on hover */
+}
+
+.card-image {
+  /* Merged from both definitions */
+  height: 240px; /* Using the larger height */
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #999;
+  font-size: 1rem;
+  position: relative;
+  overflow: hidden;
+  /* Added - if you want rounded corners only at the top */
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.card-image img {
+  /* Merged from definition */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure images cover the area without distortion */
+  transition: transform 0.5s ease;
+}
+
+.carousel-card:hover .card-image img,
+.carousel-card.active .card-image img {
+  transform: scale(1.1); /* Slightly more zoom effect on hover/active */
+}
+
+.card-content {
+  /* Merged from definition */
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribute space in content */
+}
+
+.card-title {
+  /* Merged from both definitions */
+  font-size: 1.7rem; /* Using the larger font size */
+  color: #1a472a;
+  margin-bottom: 12px; /* Using the larger margin */
+  font-weight: bold; /* Ensure title is bold */
+}
+
+.card-description {
+  /* Merged from both definitions */
+  color: #666;
+  margin-bottom: 15px;
+  flex-grow: 1;
+  font-size: 1.1rem; /* Using the larger font size */
+  line-height: 1.5; /* Improve readability */
+}
+
+.card-stats {
+  /* Merged from definition */
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem; /* Slightly increased font size */
+  color: #555; /* Slightly darker color for stats */
+  margin-top: 10px; /* Add space above stats */
+}
+
+/* Merged and Beautified Carousel Navigation Arrows */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  /* Merged width and height */
+  width: 45px; /* Slightly smaller arrows */
+  height: 45px; /* Slightly smaller arrows */
+  /* Merged background, border-radius, display, align-items, justify-content, cursor, box-shadow */
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+  z-index: 20; /* Ensure arrows are on top */
+  transition: all 0.3s ease;
+  /* Added color for the arrow icon */
+  color: #1a472a;
+  font-size: 1.5rem; /* Adjust icon size */
+}
+
+.carousel-arrow:hover {
+  /* Merged hover effects */
+  background-color: #1a472a; /* Dark green background on hover */
+  color: white; /* White arrow icon on hover */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Stronger shadow on hover */
+  transform: translateY(-50%) scale(1.1); /* Slightly enlarge and keep centered */
+}
+
+.carousel-arrow-left {
+  /* Merged left position */
+  left: 20px;
+}
+
+.carousel-arrow-right {
+  /* Merged right position */
+  right: 20px;
+}
+
+/* Merged and Beautified Carousel Navigation Dots */
+.carousel-indicator { /* Renamed from .carousel-dots in one block to match .carousel-indicator */
+  display: flex;
+  justify-content: center;
+  margin-top: 30px; /* Increased space above dots */
+}
+
+.carousel-dot {
+  /* Merged from both definitions */
+  width: 12px; /* Slightly larger dots */
+  height: 12px; /* Slightly larger dots */
+  border-radius: 50%;
+  /* Merged background */
+  background-color: #bbb; /* Slightly darker grey for inactive dots */
+  margin: 0 6px; /* Increased space between dots */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent; /* Add a transparent border */
+}
+
+.carousel-dot.active {
+  /* Merged active styles */
+  background-color: #145e34; /* Darker green for active dot */
+  transform: scale(1.2); /* Enlarge active dot */
+  border-color: #6fcf97; /* Add a subtle border to active dot */
+}
+
+/* Sections background */
+.carousel-section {
+  background: linear-gradient(135deg, #1a472a, #2b7a4b);
+  padding: 50px 20px;
+}
+
+/* Headings */
+.carousel-heading {
+  text-align: center;
+  color: #fff;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 3.5em; /* Increase font size */
+  margin: 0;
+  margin-bottom: 15px; /* Add space below title */
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Card improvements */
+.carousel-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.carousel-card:hover {
+  transform: translateY(-10px);
+}
+
+/* Badge for Fab 4 */
+.fab-badge {
+  position: absolute;
+  background: gold;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-weight: bold;
+  top: 10px;
+  left: 10px;
+  font-size: 0.8rem;
+  z-index: 5;
+}
+
+.carousel-section {
+  width: 113%;
+  background: linear-gradient(135deg, #1a472a, #2b7a4b);
+  /* padding: 50px 0; */
+  margin: 10px -60px;
+}
+
+.carousel-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.carousel .carousel-card {
+  transform: scale(0.9);
+  opacity: 0.6;
+}
+
+.carousel .carousel-card.active {
+  transform: scale(1.05);
+  opacity: 1;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Updated Carousel Section */
+.carousel-section {
+  width: 111%;
+  background: linear-gradient(135deg, #1a472a, #2b7a4b);
+  padding: 50px 0;
+  min-height: 100vh; /* Make it fill the full screen height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Card Improvements */
+.carousel-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  min-width: 360px;
+  margin: 0 15px;
+}
+
+/* Improved card scale effects */
+.carousel .carousel-card {
+  transform: scale(0.9);
+  opacity: 0.6;
+}
+
+.carousel .carousel-card.active {
+  transform: scale(1.05);
+  opacity: 1;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Increase image height */
+.card-image {
+  height: 240px; /* Increased from 240px */
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Badge for Fab 4 */
+.fab-badge {
+  position: absolute;
+  background: gold;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-weight: bold;
+  top: 10px;
+  left: 10px;
+  font-size: 0.8rem;
+  z-index: 5;
+}
+
+/* Ensure carousel container takes full width */
+.carousel-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 50px 0;
+  animation: fadeIn 1.5s ease;
+}
+
+
+
+
+
+
+
+
+
+
+/* Styles for the social icons container in the footer */
+.social-links {
+  display: flex; /* Use flexbox to arrange items */
+  flex-direction: row; /* Arrange items in a row */
+  justify-content: flex-start; /* Align items to the start (left) */
+  align-items: center; /* Vertically center items in the row */
+  margin-top: 15px;
+  gap: 10px; /* Space between icons */
+}
+
+/* Styles for the individual social icon links/containers in the footer */
+.social-icon {
+  width: 36px; /* Size of the circular background */
+  height: 36px;
+  border-radius: 50%; /* Make it circular */
+  display: flex; /* Use flexbox to center the icon inside */
+  align-items: center; /* Center icon vertically */
+  justify-content: center; /* Center icon horizontally */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none; /* Remove underline from link */
+  font-size: 1.6em; /* Size of the icon */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Optional: Add a subtle white border */
+  flex-shrink: 0; /* Prevent icons from shrinking */
+}
+
+/* Specific brand colors for the background in the footer */
+.social-icon.facebook { background-color: #3b5998; }
+.social-icon.twitter { background-color: #1da1f2; }
+.social-icon.linkedin { background-color: #0077b5; }
+.social-icon.instagram { background-color: #c13584; }
+
+/* Set the icon color to white for all social icons in the footer */
+.social-icon i {
+    color: white;
+    transition: color 0.3s ease;
+}
+
+/* Optional: Hover effect - change background to a slightly darker shade */
+.social-icon.facebook:hover { background-color: #2a4988; }
+.social-icon.twitter:hover { background-color: #0d95e8; }
+.social-icon.linkedin:hover { background-color: #005f91; }
+.social-icon.instagram:hover { background-color: #b12574; }
+
+
+/* --- Contact Page Social Icons Styling --- */
+/* Styles for the social icons container on the contact page */
+.social-icons-contact {
+    display: flex; /* Use flexbox to arrange items */
+    flex-direction: row; /* Arrange items in a row */
+    justify-content: flex-start; /* Align items to the start (left) */
+    align-items: center; /* Vertically center items in the row */
+    gap: 15px;
+}
+
+/* Styles for the individual social icon links/containers on the contact page */
+.social-icon-contact {
+    display: inline-flex; /* Use inline-flex */
+    width: 40px; /* Size of the circular background */
+    height: 40px;
+    border-radius: 50%;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    font-size: 1.8em; /* Adjusted size to fill the circle */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Optional: Add a subtle white border */
+    flex-shrink: 0; /* Prevent icons from shrinking */
+}
+
+/* Specific brand colors for the background on the contact page */
+.social-icon-contact.facebook { background-color: #3b5998; }
+.social-icon-contact.twitter { background-color: #1da1f2; }
+.social-icon-contact.linkedin { background-color: #0077b5; }
+.social-icon-contact.instagram { background-color: #c13584; }
+
+/* Set the icon color to white for all social icons on the contact page */
+.social-icon-contact i {
+    color: white;
+    transition: color 0.3s ease;
+}
+
+/* Optional: Hover effect for contact page - change background to a slightly darker shade */
+.social-icon-contact.facebook:hover { background-color: #2a4988; }
+.social-icon-contact.twitter:hover { background-color: #0d95e8; }
+.social-icon-contact.linkedin:hover { background-color: #005f91; }
+.social-icon-contact.instagram:hover { background-color: #b12574; }

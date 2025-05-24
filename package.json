@@ -1,0 +1,22 @@
+{
+  "name": "cricket",
+  "version": "1.0.0",
+  "description": "DBMS Project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js"
+  },
+  "author": "Maluk",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-async-handler": "^1.2.0",
+    "mysql2": "^3.13.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

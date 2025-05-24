@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cricket Nations - Rankings</title>
+    <link rel="stylesheet" href="cricket.css">
+    <style>
+      /* Rankings Page Specific Styles */
+      .rankings-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+      
+      .format-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+      
+      .format-tab {
+        padding: 12px 25px;
+        background-color: #f0f0f0;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+      
+      .format-tab.active {
+        background: linear-gradient(135deg, #1a472a, #2b7a4b);
+        color: white;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      }
+      
+      .rankings-content {
+        display: none;
+      }
+      
+      .rankings-content.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+      }
+      
+      .category-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 25px;
+      }
+      
+      .category-tab {
+        padding: 8px 20px;
+        background-color: #f0f0f0;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .category-tab.active {
+        background-color: #1a472a;
+        color: white;
+      }
+      
+      .rankings-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        margin-bottom: 40px;
+      }
+      
+      .rankings-table th {
+        background: linear-gradient(135deg, #1a472a, #2b7a4b);
+        color: white;
+        padding: 15px;
+        text-align: left;
+        font-size: 1.1rem;
+      }
+      
+      .rankings-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      
+      .rankings-table td {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+      }
+      
+      .rankings-table .pos {
+        font-weight: bold;
+        font-size: 1.3rem;
+        color: #1a472a;
+        width: 10%;
+      }
+      
+      .rankings-table .team {
+        display: flex;
+        align-items: center;
+        width: 30%;
+      }
+      
+      .team-flag {
+        width: 30px;
+        height: 20px;
+        margin-right: 15px;
+        border-radius: 3px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+      
+      .team-name {
+        font-weight: bold;
+        color: #333;
+      }
+      
+      .rankings-table .players {
+        width: 40%;
+        font-weight: 600;
+      }
+      
+      .rankings-table .rating {
+        width: 20%;
+        font-weight: bold;
+        color: #2b7a4b;
+        font-size: 1.2rem;
+        text-align: center;
+      }
+      
+      .player-name {
+        color: #1a472a;
+      }
+
+      .player-surname {
+        color: #000080;
+        font-weight: bold;
+      }
+      
+      .rankings-section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        color: #1a472a;
+        position: relative;
+        animation: fadeIn 1.2s ease;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      
+      .rankings-section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background-color: #2b7a4b;
+        border-radius: 2px;
+      }
+      
+      @media screen and (max-width: 768px) {
+        .format-tabs, .category-tabs {
+          flex-direction: column;
+          gap: 10px;
+        }
+        
+        .rankings-table th, .rankings-table td {
+          padding: 10px;
+        }
+        
+        .team-flag {
+          width: 25px;
+          height: 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="cricket-ball" style="top: 20%; left: 10%"></div>
+      <div class="cricket-ball" style="top: 60%; left: 80%"></div>
+      <div class="cricket-ball" style="top: 30%; left: 60%"></div>
+      <h1>Cricket Nations</h1>
+      <p>
+        Explore the rich heritage and exciting world of international cricket
+      </p>
+    </header>
+    
+    <nav>
+      <div class="nav-container">
+        <div class="logo">CricketNations</div>
+        <ul class="menu">
+          <li><a href="cricket.html">Home</a></li>
+          <li><a href="#">Teams</a></li>
+          <li><a href="#" class="active">Rankings</a></li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">Fixtures</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    
+    <main>
+      <h2 class="rankings-section-title">ICC Cricket Rankings</h2>
+      
+      <div class="rankings-container">
+        <!-- Format Tabs -->
+        <div class="format-tabs">
+          <div class="format-tab active" data-format="test">Test</div>
+          <div class="format-tab" data-format="odi">ODI</div>
+          <div class="format-tab" data-format="t20">T20</div>
+        </div>
+        
+        <!-- Test Rankings Content -->
+        <div class="rankings-content active" id="test-rankings">
+          <!-- Test Category Tabs -->
+          <div class="category-tabs">
+            <div class="category-tab active" data-category="batting">Batting</div>
+            <div class="category-tab" data-category="bowling">Bowling</div>
+            <div class="category-tab" data-category="all-rounder">All-Rounder</div>
+          </div>
+          
+          <!-- Test Batting Rankings -->
+          <div class="category-content active" id="test-batting">
+            <table class="rankings-table">
+              <thead>
+                <tr>
+                  <th class="pos">Pos</th>
+                  <th class="team">Team</th>
+                  <th class="players">Players</th>
+                  <th class="rating">Rating</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="pos">01</td>
+                  <td class="team">
+                    <img src="Flag_of_India.svg" alt="India" class="team-flag">
+                    <span class="team-name">IND</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Shubman</span> <span class="player-surname">GILL</span>
+                  </td>
+                  <td class="rating">784</td>
+                </tr>
+                <tr>
+                  <td class="pos">02</td>
+                  <td class="team">
+                    <img src="Flag_of_Pakistan.svg.webp" alt="Pakistan" class="team-flag">
+                    <span class="team-name">PAKISTAN</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Babar</span> <span class="player-surname">AZAM</span>
+                  </td>
+                  <td class="rating">766</td>
+                </tr>
+                <tr>
+                  <td class="pos">03</td>
+                  <td class="team">
+                    <img src="Flag_of_India.svg" alt="India" class="team-flag">
+                    <span class="team-name">INDIA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Rohit</span> <span class="player-surname">SHARMA</span>
+                  </td>
+                  <td class="rating">756</td>
+                </tr>
+                <tr>
+                  <td class="pos">04</td>
+                  <td class="team">
+                    <img src="Flag-South-Africa.webp" alt="South Africa" class="team-flag">
+                    <span class="team-name">SOUTH AFRICA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Heinrich</span> <span class="player-surname">KLAASEN</span>
+                  </td>
+                  <td class="rating">744</td>
+                </tr>
+                <tr>
+                  <td class="pos">05</td>
+                  <td class="team">
+                    <img src="Flag_of_India.svg" alt="India" class="team-flag">
+                    <span class="team-name">INDIA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Virat</span> <span class="player-surname">KOHLI</span>
+                  </td>
+                  <td class="rating">736</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <!-- Test Bowling Rankings -->
+          <div class="category-content" id="test-bowling">
+            <table class="rankings-table">
+              <thead>
+                <tr>
+                  <th class="pos">Pos</th>
+                  <th class="team">Team</th>
+                  <th class="players">Players</th>
+                  <th class="rating">Rating</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="pos">01</td>
+                  <td class="team">
+                    <img src="Flag_of_India.svg" alt="India" class="team-flag">
+                    <span class="team-name">IND</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Jasprit</span> <span class="player-surname">BUMRAH</span>
+                  </td>
+                  <td class="rating">812</td>
+                </tr>
+                <tr>
+                  <td class="pos">02</td>
+                  <td class="team">
+                    <img src="australia.jpg" alt="Australia" class="team-flag">
+                    <span class="team-name">AUSTRALIA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Pat</span> <span class="player-surname">CUMMINS</span>
+                  </td>
+                  <td class="rating">798</td>
+                </tr>
+                <tr>
+                  <td class="pos">03</td>
+                  <td class="team">
+                    <img src="Flag-South-Africa.webp" alt="South Africa" class="team-flag">
+                    <span class="team-name">SOUTH AFRICA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Kagiso</span> <span class="player-surname">RABADA</span>
+                  </td>
+                  <td class="rating">782</td>
+                </tr>
+                <tr>
+                  <td class="pos">04</td>
+                  <td class="team">
+                    <img src="Flag-England.webp" alt="England" class="team-flag">
+                    <span class="team-name">ENGLAND</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">James</span> <span class="player-surname">ANDERSON</span>
+                  </td>
+                  <td class="rating">764</td>
+                </tr>
+                <tr>
+                  <td class="pos">05</td>
+                  <td class="team">
+                    <img src="Flag_of_India.svg" alt="India" class="team-flag">
+                    <span class="team-name">INDIA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Ravichandran</span> <span class="player-surname">ASHWIN</span>
+                  </td>
+                  <td class="rating">746</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <!-- Test All-Rounder Rankings -->
+          <div class="category-content" id="test-allrounder">
+            <table class="rankings-table">
+              <thead>
+                <tr>
+                  <th class="pos">Pos</th>
+                  <th class="team">Team</th>
+                  <th class="players">Players</th>
+                  <th class="rating">Rating</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="pos">01</td>
+                  <td class="team">
+                    <img src="Flag_of_India.svg" alt="India" class="team-flag">
+                    <span class="team-name">IND</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Ravindra</span> <span class="player-surname">JADEJA</span>
+                  </td>
+                  <td class="rating">765</td>
+                </tr>
+                <tr>
+                  <td class="pos">02</td>
+                  <td class="team">
+                    <img src="Flag_of_India.svg" alt="India" class="team-flag">
+                    <span class="team-name">INDIA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Ravichandran</span> <span class="player-surname">ASHWIN</span>
+                  </td>
+                  <td class="rating">752</td>
+                </tr>
+                <tr>
+                  <td class="pos">03</td>
+                  <td class="team">
+                    <img src="Flag-England.webp" alt="England" class="team-flag">
+                    <span class="team-name">ENGLAND</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Ben</span> <span class="player-surname">STOKES</span>
+                  </td>
+                  <td class="rating">734</td>
+                </tr>
+                <tr>
+                  <td class="pos">04</td>
+                  <td class="team">
+                    <img src="Flag-South-Africa.webp" alt="South Africa" class="team-flag">
+                    <span class="team-name">SOUTH AFRICA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Marco</span> <span class="player-surname">JANSEN</span>
+                  </td>
+                  <td class="rating">728</td>
+                </tr>
+                <tr>
+                  <td class="pos">05</td>
+                  <td class="team">
+                    <img src="australia.jpg" alt="Australia" class="team-flag">
+                    <span class="team-name">AUSTRALIA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Mitchell</span> <span class="player-surname">STARC</span>
+                  </td>
+                  <td class="rating">710</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!-- ODI Rankings Content -->
+        <div class="rankings-content" id="odi-rankings">
+          <!-- ODI Category Tabs -->
+          <div class="category-tabs">
+            <div class="category-tab active" data-category="batting">Batting</div>
+            <div class="category-tab" data-category="bowling">Bowling</div>
+            <div class="category-tab" data-category="all-rounder">All-Rounder</div>
+          </div>
+          
+          <!-- ODI Batting Rankings -->
+          <div class="category-content active" id="odi-batting">
+            <table class="rankings-table">
+              <thead>
+                <tr>
+                  <th class="pos">Pos</th>
+                  <th class="team">Team</th>
+                  <th class="players">Players</th>
+                  <th class="rating">Rating</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="pos">01</td>
+                  <td class="team">
+                    <img src="Flag_of_Pakistan.svg.webp" alt="Pakistan" class="team-flag">
+                    <span class="team-name">PAKISTAN</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Babar</span> <span class="player-surname">AZAM</span>
+                  </td>
+                  <td class="rating">821</td>
+                </tr>
+                <tr>
+                  <td class="pos">02</td>
+                  <td class="team">
+                    <img src="Flag_of_India.svg" alt="India" class="team-flag">
+                    <span class="team-name">INDIA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Shubman</span> <span class="player-surname">GILL</span>
+                  </td>
+                  <td class="rating">802</td>
+                </tr>
+                <tr>
+                  <td class="pos">03</td>
+                  <td class="team">
+                    <img src="Flag_of_India.svg" alt="India" class="team-flag">
+                    <span class="team-name">INDIA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Virat</span> <span class="player-surname">KOHLI</span>
+                  </td>
+                  <td class="rating">791</td>
+                </tr>
+                <tr>
+                  <td class="pos">04</td>
+                  <td class="team">
+                    <img src="Flag_of_India.svg" alt="India" class="team-flag">
+                    <span class="team-name">INDIA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Rohit</span> <span class="player-surname">SHARMA</span>
+                  </td>
+                  <td class="rating">776</td>
+                </tr>
+                <tr>
+                  <td class="pos">05</td>
+                  <td class="team">
+                    <img src="Flag-South-Africa.webp" alt="South Africa" class="team-flag">
+                    <span class="team-name">SOUTH AFRICA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Quinton</span> <span class="player-surname">DE KOCK</span>
+                  </td>
+                  <td class="rating">753</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <!-- ODI Bowling Rankings -->
+          <div class="category-content" id="odi-bowling">
+            <table class="rankings-table">
+              <thead>
+                <tr>
+                  <th class="pos">Pos</th>
+                  <th class="team">Team</th>
+                  <th class="players">Players</th>
+                  <th class="rating">Rating</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="pos">01</td>
+                  <td class="team">
+                    <img src="Flag-South-Africa.webp" alt="South Africa" class="team-flag">
+                    <span class="team-name">SOUTH AFRICA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Keshav</span> <span class="player-surname">MAHARAJ</span>
+                  </td>
+                  <td class="rating">783</td>
+                </tr>
+                <tr>
+                  <td class="pos">02</td>
+                  <td class="team">
+                    <img src="australia.jpg" alt="Australia" class="team-flag">
+                    <span class="team-name">AUSTRALIA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Josh</span> <span class="player-surname">HAZLEWOOD</span>
+                  </td>
+                  <td class="rating">773</td>
+                </tr>
+                <tr>
+                  <td class="pos">03</td>
+                  <td class="team">
+                    <img src="afg flag.jpg" alt="Afghanistan" class="team-flag">
+                    <span class="team-name">AFGHANISTAN</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Rashid</span> <span class="player-surname">KHAN</span>
+                  </td>
+                  <td class="rating">765</td>
+                </tr>
+                <tr>
+                  <td class="pos">04</td>
+                  <td class="team">
+                    <img src="Flag_of_India.svg" alt="India" class="team-flag">
+                    <span class="team-name">INDIA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Mohammad</span> <span class="player-surname">SIRAJ</span>
+                  </td>
+                  <td class="rating">756</td>
+                </tr>
+                <tr>
+                  <td class="pos">05</td>
+                  <td class="team">
+                    <img src="nz flag1.jpg" alt="New Zealand" class="team-flag">
+                    <span class="team-name">NEW ZEALAND</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Trent</span> <span class="player-surname">BOULT</span>
+                  </td>
+                  <td class="rating">745</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <!-- ODI All-Rounder Rankings -->
+          <div class="category-content" id="odi-allrounder">
+            <table class="rankings-table">
+              <thead>
+                <tr>
+                  <th class="pos">Pos</th>
+                  <th class="team">Team</th>
+                  <th class="players">Players</th>
+                  <th class="rating">Rating</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="pos">01</td>
+                  <td class="team">
+                    <img src="Flag_of_Bangladesh.svg.webp" alt="Bangladesh" class="team-flag">
+                    <span class="team-name">BANGLADESH</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Shakib Al</span> <span class="player-surname">HASAN</span>
+                  </td>
+                  <td class="rating">774</td>
+                </tr>
+                <tr>
+                  <td class="pos">02</td>
+                  <td class="team">
+                    <img src="afg flag.jpg" alt="Afghanistan" class="team-flag">
+                    <span class="team-name">AFGHANISTAN</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Mohammad</span> <span class="player-surname">NABI</span>
+                  </td>
+                  <td class="rating">755</td>
+                </tr>
+                <tr>
+                  <td class="pos">03</td>
+                  <td class="team">
+                    <img src="Flag_of_India.svg" alt="India" class="team-flag">
+                    <span class="team-name">INDIA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Hardik</span> <span class="player-surname">PANDYA</span>
+                  </td>
+                  <td class="rating">743</td>
+                </tr>
+                <tr>
+                  <td class="pos">04</td>
+                  <td class="team">
+                    <img src="Flag_of_India.svg" alt="India" class="team-flag">
+                    <span class="team-name">INDIA</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Ravindra</span> <span class="player-surname">JADEJA</span>
+                  </td>
+                  <td class="rating">739</td>
+                </tr>
+                <tr>
+                  <td class="pos">05</td>
+                  <td class="team">
+                    <img src="afg flag.jpg" alt="Afghanistan" class="team-flag">
+                    <span class="team-name">AFGHANISTAN</span>
+                  </td>
+                  <td class="players">
+                    <span class="player-name">Rashid</span> <span class="player-surname">KHAN</span>
+                  </td>
+                  <td class="rating">732</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div class="rankings-content" id="t20-rankings">
+			<div class="category-tabs">
+				<div class="category-tab active" data-category="batting">Batting</div>
+				<div class="category-tab" data-category="bowling">Bowling</div>
+				<div class="category-tab" data-category="all-rounder">All-Rounder</div>
+			</div>
+
+			<div class="category-content active" id="t20-batting">
+				<table class="rankings-table">
+					<thead>
+						<tr>
+							<th class="pos">Pos</th>
+							<th class="team">Team</th>
+							<th class="players">Players</th>
+							<th class="rating">Rating</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="pos">01</td>
+							<td class="team">
+								<img src="australia.jpg" alt="Australia" class="team-flag">
+								<span class="team-name">AUSTRALIA</span>
+							</td>
+							<td class="players">
+								<span class="player-name">Travis</span> <span class="player-surname">HEAD</span>
+							</td>
+							<td class="rating">856</td>
+						</tr>
+						<tr>
+							<td class="pos">02</td>
+							<td class="team">
+								<img src="Flag_of_India.svg" alt="India" class="team-flag">
+								<span class="team-name">INDIA</span>
+							</td>
+							<td class="players">
+								<span class="player-name">Abhishek</span> <span class="player-surname">SHARMA</span>
+							</td>
+							<td class="rating">829</td>
+						</tr>
+						<tr>
+							<td class="pos">03</td>
+							<td class="team">
+								<img src="Flag_of_England.svg.webp" alt="England" class="team-flag">
+								<span class="team-name">ENGLAND</span>
+							</td>
+							<td class="players">
+								<span class="player-name">Phil</span> <span class="player-surname">SALT</span>
+							</td>
+							<td class="rating">815</td>
+						</tr>
+						<tr>
+							<td class="pos">04</td>
+							<td class="team">
+								<img src="Flag_of_India.svg" alt="India" class="team-flag">
+								<span class="team-name">INDIA</span>
+							</td>
+							<td class="players">
+								<span class="player-name">Tilak</span> <span class="player-surname">VARMA</span>
+							</td>
+							<td class="rating">804</td>
+						</tr>
+						<tr>
+							<td class="pos">05</td>
+							<td class="team">
+								<img src="Flag_of_India.svg" alt="India" class="team-flag">
+								<span class="team-name">INDIA</span>
+							</td>
+							<td class="players">
+								<span class="player-name">Suryakumar</span> <span class="player-surname">YADAV</span>
+							</td>
+							<td class="rating">739</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="category-content" id="t20-bowling">
+				<table class="rankings-table">
+					<thead>
+						<tr>
+							<th class="pos">Pos</th>
+							<th class="team">Team</th>
+							<th class="players">Players</th>
+							<th class="rating">Rating</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="pos">01</td>
+							<td class="team">
+								<img src="nz flag1.jpg" alt="New Zealand" class="team-flag">
+								<span class="team-name">NEW ZEALAND</span>
+							</td>
+							<td class="players">
+								<span class="player-name">Jacob</span> <span class="player-surname">DUFFY</span>
+							</td>
+							<td class="rating">723</td>
+						</tr>
+						<tr>
+							<td class="pos">02</td>
+							<td class="team">
+								<img src="Flag_of_West_Indies_Cricket.svg" alt="West Indies" class="team-flag">
+								<span class="team-name">WEST INDIES</span>
+							</td>
+							<td class="players">
+								<span class="player-name">Akeal</span> <span class="player-surname">HOSEIN</span>
+							</td>
+							<td class="rating">707</td>
+						</tr>
+						<tr>
+							<td class="pos">03</td>
+							<td class="team">
+								<img src="Flag_of_India.svg" alt="India" class="team-flag">
+								<span class="team-name">INDIA</span>
+							</td>
+							<td class="players">
+								<span class="player-name">Varun</span> <span class="player-surname">CHAKRAVARTHY</span>
+							</td>
+							<td class="rating">706</td>
+						</tr>
+						<tr>
+							<td class="pos">04</td>
+							<td class="team">
+								<img src="Flag_of_England.svg.webp" alt="England" class="team-flag">
+								<span class="team-name">ENGLAND</span>
+							</td>
+							<td class="players">
+								<span class="player-name">Adil</span> <span class="player-surname">RASHID</span>
+							</td>
+							<td class="rating">705</td>
+						</tr>
+						<tr>
+							<td class="pos">05</td>
+							<td class="team">
+								<img src="sri lanka.png" alt="Sri Lanka" class="team-flag">
+								<span class="team-name">SRI LANKA</span>
+							</td>
+							<td class="players">
+								<span class="player-name">Wanindu</span> <span class="player-surname">HASARANGA</span>
+							</td>
+							<td class="rating">700</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="category-content" id="t20-allrounder">
+				<table class="rankings-table">
+					<thead>
+						<tr>
+							<th class="pos">Pos</th>
+							<th class="team">Team</th>
+							<th class="players">Players</th>
+							<th class="rating">Rating</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="pos">01</td>
+							<td class="team">
+								<img src="Flag_of_India.svg" alt="India" class="team-flag">
+								<span class="team-name">INDIA</span>
+							</td>
+							<td class="players">
+								<span class="player-name">Hardik</span> <span class="player-surname">PANDYA</span>
+							</td>
+							<td class="rating">252</td>
+						</tr>
+						<tr>
+							<td class="pos">02</td>
+							<td class="team">
+								<img src="australia.jpg" alt="Australia" class="team-flag">
+								<span class="team-name">AUSTRALIA</span>
+							</td>
+							<td class="players">
+								<span class="player-name">Marcus</span> <span class="player-surname">STOINIS</span>
+							</td>
+							<td class="rating">210</td>
+						</tr>
+						<tr>
+							<td class="pos">03</td>
+							<td class="team">
+								<img src="Flag_of_England.svg.webp" alt="England" class="team-flag">
+								<span class="player-name">ENGLAND</span>
+							</td>
+							<td class="players">
+								<span class="player-name">Liam</span> <span class="player-surname">LIVINGSTONE</span>
+							</td>
+							<td class="rating">209</td>
+						</tr>
+						<tr>
+							<td class="pos">04</td>
+							<td class="team">
+								<img src="Flag_of_Nepal.svg" alt="Nepal" class="team-flag">
+								<span class="team-name">NEPAL</span>
+							</td>
+							<td class="players">
+								<span class="player-name">Dipendra Singh</span> <span class="player-surname">AIREE</span>
+							</td>
+							<td class="rating">209</td>
+						</tr>
+						<tr>
+							<td class="pos">05</td>
+							<td class="team">
+								<img src="afg flag.jpg" alt="Afghanistan" class="team-flag">
+								<span class="team-name">AFGHANISTAN</span>
+							</td>
+							<td class="players">
+								<span class="player-name">Mohammad</span> <span class="player-surname">NABI</span>
+							</td>
+							<td class="rating">207</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+    </body>
+</html>
+          
+          <!-- T20 Bowling Rankings
+          <div class="category-content" id="t20-bowling">
+            <table class="rankings-table">
+              <thead>
+                <tr>
+                  <th class="pos">Pos</th>
+                  <th -->

@@ -1,0 +1,506 @@
+/* Existing general styles from your file */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f0f8ff; /* Or use a subtle light gray like #f4f4f4 */
+  color: #333;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header,
+nav,
+footer {
+  flex-shrink: 0;
+}
+
+/* Header Styles (Keep your existing styles) */
+header {
+  background: linear-gradient(
+    135deg,
+    #1a472a,
+    #2b7a4b
+  ); /* Keep your existing gradient */
+  color: white;
+  padding: 20px 0; /* Adjust padding if needed, maybe a bit more vertical padding */
+  text-align: center; /* Keep text centered */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Keep your existing shadow */
+  position: relative;
+  overflow: hidden;
+}
+
+header h1 {
+  /* font-size: 3rem; /* Original */
+  font-size: 3.5em; /* Match welcome-title font size */
+  margin-bottom: 15px; /* Match welcome-title bottom margin */
+  font-weight: bold; /* Ensure bold like welcome-title */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add text shadow like welcome-title */
+  position: relative;
+  z-index: 1;
+  animation: fadeInDown 1s ease;
+}
+
+header p {
+  /* font-size: 1.2rem; /* Original */
+  font-size: 1.4em; /* Match welcome-message font size */
+  max-width: 800px; /* Keep max-width */
+  margin: 0 auto;
+  line-height: 1.6; /* Improve readability like welcome-message */
+  color: #f0f0f0; /* Use the slightly lighter color like welcome-message */
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 1s ease;
+}
+/* Style for the main "ICC TEAM RANKINGS" title */
+.page-title {
+  text-align: center;
+  /* font-size: 2.5em; */
+  /* margin-bottom: 40px; */
+  color: #1a472a;
+  /* font-weight: bold; */
+  /* text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); */
+  text-align: center;
+  /* font-size: 2rem; */
+  margin-bottom: 40px;
+  color: #1a472a;
+  position: relative;
+  animation: fadeIn 1.2s ease;
+  font-size: 3.5em;
+  margin: 0;
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.page-title::after {
+  /* Add the underline pseudo-element */
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: #2b7a4b;
+  border-radius: 2px; /* Rounded ends for the underline */
+}
+/* Cricket ball animation in header (Keep your existing styles) */
+.cricket-ball {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: #cb2026;
+  border-radius: 50%;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+/* Navigation Styles (Keep your existing styles, added .active style) */
+nav {
+  background-color: #ffffff;
+  padding: 15px 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #1a472a;
+  letter-spacing: 1px;
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  margin-left: 30px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #555;
+  font-weight: 600;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  padding: 5px 0;
+  border-bottom: 2px solid transparent;
+}
+
+.menu a:hover,
+.menu a.active {
+  color: #2b7a4b;
+  border-bottom-color: #2b7a4b;
+}
+
+/* --- Team Rankings Specific Styles --- */
+
+main {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.ranking-container {
+  display: flex;
+  flex-wrap: wrap;
+  /* Use space-around or space-evenly for distribution, or center with gap */
+  justify-content: center; /* Centered the sections */
+  gap: 30px; /* Increased space between ranking sections */
+  padding: 20px 0; /* Add some padding around the container */
+}
+
+.ranking-section {
+  flex: 1 1 300px; /* Allow sections to grow/shrink, with a base of 300px */
+  max-width: 380px; /* Set a max-width for larger screens */
+  background: #ffffff; /* White background */
+  border-radius: 10px; /* Rounded corners */
+  padding: 25px; /* Increased padding */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+  display: flex; /* Use flexbox for content inside section */
+  flex-direction: column; /* Stack title and table vertically */
+}
+
+.ranking-type-title {
+  /* Style for "ODI Team Ranking", "Test Team Ranking", etc. */
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 2em;
+  color: #1a472a;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+  font-weight: bold;
+}
+
+.ranking-table {
+  /* Style for the tables */
+  width: 100%; /* Table takes full width of its container (.ranking-section) */
+  border-collapse: collapse;
+  margin-top: auto; /* Pushes table to the bottom if section has extra space */
+  border: 1px solid #ddd; /* Light border around table */
+  /* border-radius: 8px; Rounded corners for table */
+  overflow: hidden; /* Ensures rounded corners with border */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle table shadow */
+}
+
+.ranking-table th,
+.ranking-table td {
+  text-align: left;
+  padding: 20px 10px;
+  border-bottom: 1px solid #eee; /* Light border between rows */
+}
+
+.ranking-table th {
+  /* Table header style */
+  background-color: #4caf50; /* Green background */
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase; /* Uppercase text */
+  letter-spacing: 0.5px;
+  /* Optional gradient for header */
+  background: linear-gradient(135deg, #1a472a, #2b7a4b);
+}
+
+.ranking-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Light alternate row color */
+}
+
+.ranking-table tbody tr:hover {
+  background-color: #f1f1f1; /* Hover effect on rows */
+}
+
+.ranking-table td {
+  border-bottom: 1px solid #eee;
+  padding: 15px 3px;
+  color: #333; /* Default text color for cells */
+}
+
+/* Specific column styling */
+.ranking-table td:first-child {
+  /* Position column */
+  font-weight: bold;
+  width: 60px;
+  text-align: center;
+  color: #555;
+}
+
+.ranking-table td:last-child {
+  /* Rating column */
+  font-weight: bold;
+  color: #cb2026; /* Blue color for rating */
+  text-align: center;
+  width: 80px;
+  font-size: 1.1em;
+}
+
+.ranking-table td img.team-flag {
+  /* Style for flags */
+  width: 24px; /* Size of flags */
+  height: 16px; /* Maintain aspect ratio */
+  object-fit: cover;
+  margin-right: 10px; /* Space between flag and text */
+  vertical-align: middle; /* Align flag with text */
+  border: 1px solid #eee; /* Small border */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border-radius: 2px;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+  /* Adjusted breakpoint slightly */
+  .ranking-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Adjusted gap for column layout */
+  }
+
+  .ranking-section {
+    width: 95%; /* Take up more width on smaller screens */
+    max-width: 400px; /* Keep a max-width */
+    padding: 20px; /* Adjusted padding */
+  }
+
+  .page-title {
+    font-size: 3.5em; /* Smaller title on small screens */
+  }
+}
+
+/* Footer Styles (Keep your existing styles, added .active style) */
+footer {
+  background-color: #1a472a;
+  color: white;
+  padding: 40px 0 20px;
+  margin-top: 80px;
+  animation: fadeIn 2s ease;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 0 20px;
+}
+
+.footer-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-section h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: #6fcf97;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover,
+.footer-links a.active {
+  color: white;
+}
+
+.social-links {
+  display: flex;
+  margin-top: 15px;
+}
+
+.social-icon {
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.social-icon:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+/* Animations (Keep your existing styles) */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatBall {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(15px, 15px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.social-links {
+  display: flex; /* Use flexbox to arrange items */
+  flex-direction: row; /* Arrange items in a row */
+  justify-content: flex-start; /* Align items to the start (left) */
+  align-items: center; /* Vertically center items in the row */
+  margin-top: 15px;
+  gap: 10px; /* Space between icons */
+}
+
+/* Styles for the individual social icon links/containers in the footer */
+.social-icon {
+  width: 36px; /* Size of the circular background */
+  height: 36px;
+  border-radius: 50%; /* Make it circular */
+  display: flex; /* Use flexbox to center the icon inside */
+  align-items: center; /* Center icon vertically */
+  justify-content: center; /* Center icon horizontally */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none; /* Remove underline from link */
+  font-size: 1.6em; /* Size of the icon */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Optional: Add a subtle white border */
+  flex-shrink: 0; /* Prevent icons from shrinking */
+}
+
+/* Specific brand colors for the background in the footer */
+.social-icon.facebook { background-color: #3b5998; }
+.social-icon.twitter { background-color: #1da1f2; }
+.social-icon.linkedin { background-color: #0077b5; }
+.social-icon.instagram { background-color: #c13584; }
+
+/* Set the icon color to white for all social icons in the footer */
+.social-icon i {
+    color: white;
+    transition: color 0.3s ease;
+}
+
+/* Optional: Hover effect - change background to a slightly darker shade */
+.social-icon.facebook:hover { background-color: #2a4988; }
+.social-icon.twitter:hover { background-color: #0d95e8; }
+.social-icon.linkedin:hover { background-color: #005f91; }
+.social-icon.instagram:hover { background-color: #b12574; }
+
+
+/* --- Contact Page Social Icons Styling --- */
+/* Styles for the social icons container on the contact page */
+.social-icons-contact {
+    display: flex; /* Use flexbox to arrange items */
+    flex-direction: row; /* Arrange items in a row */
+    justify-content: flex-start; /* Align items to the start (left) */
+    align-items: center; /* Vertically center items in the row */
+    gap: 15px;
+}
+
+/* Styles for the individual social icon links/containers on the contact page */
+.social-icon-contact {
+    display: inline-flex; /* Use inline-flex */
+    width: 40px; /* Size of the circular background */
+    height: 40px;
+    border-radius: 50%;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    font-size: 1.8em; /* Adjusted size to fill the circle */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Optional: Add a subtle white border */
+    flex-shrink: 0; /* Prevent icons from shrinking */
+}
+
+/* Specific brand colors for the background on the contact page */
+.social-icon-contact.facebook { background-color: #3b5998; }
+.social-icon-contact.twitter { background-color: #1da1f2; }
+.social-icon-contact.linkedin { background-color: #0077b5; }
+.social-icon-contact.instagram { background-color: #c13584; }
+
+/* Set the icon color to white for all social icons on the contact page */
+.social-icon-contact i {
+    color: white;
+    transition: color 0.3s ease;
+}
+
+/* Optional: Hover effect for contact page - change background to a slightly darker shade */
+.social-icon-contact.facebook:hover { background-color: #2a4988; }
+.social-icon-contact.twitter:hover { background-color: #0d95e8; }
+.social-icon-contact.linkedin:hover { background-color: #005f91; }
+.social-icon-contact.instagram:hover { background-color: #b12574; }
+
