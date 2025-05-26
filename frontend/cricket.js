@@ -122,7 +122,7 @@ const getTeams = async () => {
 
     teams.forEach(team => {
       const html = `
-        <a href="players.html#${team.team_name.toLowerCase().replace(/\s/g, '-')}-players" class="carousel-card-link">
+        <a href="players.html#${team.team_name.toLowerCase().replace(/\s+/g, '-')}-players" class="carousel-card-link">
           <div class="carousel-card">
             <div class="card-image">
               <div><img src="Flag_of_${team.country}.jpg" alt="${team.country} Flag"></div>
@@ -314,10 +314,11 @@ const getPlayers = async (req,res)=>{
     Object.entries(grouped).forEach(([team, teamPlayers]) => {
       const section = document.createElement("section");
       section.className = "country-players-section";
-      section.id = `${team.toLowerCase().replace(/\s/g, ' ')}-players`;            
+      // Fixed ID generation to match the carousel links
+      section.id = `${team.toLowerCase().replace(/\s+/g, '-')}-players`;            
 
       section.innerHTML = `
-        <h2 class="country-name-heading" id="${team.toLowerCase().replace(/\s/g, '-')}-players">${team} Players</h2>
+        <h2 class="country-name-heading" id="${team.toLowerCase().replace(/\s+/g, '-')}-players-heading">${team} Players</h2>
         <div class="player-list">
           ${teamPlayers.map(player => `
             <div class="player-card">
@@ -359,12 +360,26 @@ const getPlayers = async (req,res)=>{
       container.appendChild(section);
     });
 
+    // After all players are loaded, check if there's a hash in URL and scroll to it
+    const hash = window.location.hash;
+    if (hash) {
+      setTimeout(() => {
+        const targetSection = document.querySelector(hash);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100); // Small delay to ensure DOM is updated
+    }
+
   } catch (err) {
     console.error("Error fetching players:", err);
   }
 };
 
-getPlayers();
+// Only call getPlayers if we're on the players page
+if (document.getElementById("country-players-container")) {
+  getPlayers();
+}
 
 //Fab Four
 const fabcontainer = document.getElementById("Fab4-container");
@@ -403,4 +418,10 @@ const getFab = async () => {
     console.error('Error fetching Fab 4 players:', err);
   }
 };
-getFab()
+
+// Only call getFab if we're on the home page
+if (document.getElementById("Fab4-container")) {
+  getFab();
+}
+
+const currentPage = window.location.href;
