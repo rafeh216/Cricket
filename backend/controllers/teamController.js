@@ -24,9 +24,19 @@ const getPlayers = asyncHandler(async (req, res) => {
     })
 })
 
+const getFab = asyncHandler(async (req, res) => {
+    conn.query('SELECT player_name, TEST_RUNS, odi_runs, t20_runs FROM fabulous_four', (err, results) => {
+        if (err) {
+            console.error(err)
+            return res.status(500).json({ message: "Problem getting players" })
+        }
 
+        res.status(200).json(results)
+    })
+})
 
 module.exports = {
     getTeams,
-    getPlayers
+    getPlayers,
+    getFab
 }

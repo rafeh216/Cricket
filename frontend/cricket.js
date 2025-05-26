@@ -1,4 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Scroll to the specific team section if the URL contains a hash
+    const hash = window.location.hash;
+    if (hash) {
+      const targetSection = document.querySelector(hash);
+      if (targetSection) {
+        targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
   // Cricket ball animation
   const balls = document.querySelectorAll(".cricket-ball");
   balls.forEach((ball, index) => {
@@ -110,7 +118,7 @@ const carouselContainer = document.getElementById('carousel-container');
 const getTeams = async () => {
   try {
     const res = await axios.get('http://localhost:5000/api/team/');
-    const teams = res.data;
+    const teams = res.data;  
 
     teams.forEach(team => {
       const html = `
@@ -132,7 +140,7 @@ const getTeams = async () => {
           </div>
         </a>
       `;
-      carouselContainer.innerHTML += html;
+      carouselContainer.innerHTML += html;      
     });
 
     initializeCarousel(); 
@@ -141,6 +149,7 @@ const getTeams = async () => {
     console.error('Error fetching teams:', err);
   }
 };
+
 
 function initializeCarousel() {
   const carouselContainers = document.querySelectorAll(".carousel-container");
@@ -300,23 +309,21 @@ const getPlayers = async (req,res)=>{
       if (!grouped[p.team_name]) grouped[p.team_name] = [];
       grouped[p.team_name].push(p);
     });
-    console.log(grouped);
-    
 
     // Loop through teams
     Object.entries(grouped).forEach(([team, teamPlayers]) => {
       const section = document.createElement("section");
       section.className = "country-players-section";
-      section.id = `${team.toLowerCase().replace(/\s/g, '-')}-players`;
+      section.id = `${team.toLowerCase().replace(/\s/g, ' ')}-players`;            
 
       section.innerHTML = `
-        <h2 class="country-name-heading">${team} Players</h2>
+        <h2 class="country-name-heading" id="${team.toLowerCase().replace(/\s/g, '-')}-players">${team} Players</h2>
         <div class="player-list">
           ${teamPlayers.map(player => `
             <div class="player-card">
               <div class="player-info">
                 <div class="player-picture">
-                  <img src="${player.player_name}.webp" alt="${player.player_name}" />
+                  <img src="${player.player_name}.jpg" alt="${player.player_name}" />
                 </div>
                 <h3 class="player-name">${player.player_name}</h3>
               </div>
@@ -358,3 +365,42 @@ const getPlayers = async (req,res)=>{
 };
 
 getPlayers();
+
+//Fab Four
+const fabcontainer = document.getElementById("Fab4-container");
+
+const getFab = async () => {
+  try {
+    const response = await axios.get('http://localhost:5000/api/team/fab4');
+    const fabPlayers = response.data;        
+
+    fabPlayers.forEach(fab => {
+      const html = `
+        <div class="carousel-card">
+          <div class="fab-badge">Fab 4</div>
+          <div class="card-image">
+            <img src="./${fab.player_name.toLowerCase()} fab.jpg" alt="${fab.player_name}">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">${fab.player_name}</h3>
+            <p class="card-description">
+              The modern master known for run chases and passion.
+            </p>
+            <div class="card-stats">
+              <span>Test: ${fab.TEST_RUNS}</span>
+              <span>ODI: ${fab.odi_runs}</span>
+              <span>T20: ${fab.t20_runs}</span>
+            </div>
+          </div>
+        </div>
+      `;
+      fabcontainer.innerHTML += html;
+    });
+
+    initializeCarousel(); 
+
+  } catch (err) {
+    console.error('Error fetching Fab 4 players:', err);
+  }
+};
+getFab()
