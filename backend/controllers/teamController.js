@@ -34,9 +34,55 @@ const getFab = asyncHandler(async (req, res) => {
         res.status(200).json(results)
     })
 })
+const getPRank = asyncHandler(async (req, res) => {
+    const { format, category } = req.query;
+    
+    let query = '';
+    
+    // Determine which table to query based on format and category
+    if (format === 'test') {
+        if (category === 'batting') {
+            query = 'SELECT ranking as pos, player_name, country as team, rating FROM TEST_BATTER_RANKINGS ORDER BY ranking LIMIT 5';
+        } else if (category === 'bowling') {
+            query = 'SELECT ranking as pos, player_name, country as team, rating FROM TEST_BOWLER_RANKINGS ORDER BY ranking LIMIT 5';
+        } else if (category === 'all-rounder') {
+            query = 'SELECT ranking as pos, player_name, country as team, rating FROM TEST_ALLROUNDER_RANKINGS ORDER BY ranking LIMIT 5';
+        }
+    } else if (format === 'odi') {
+        if (category === 'batting') {
+            query = 'SELECT ranking as pos, player_name, country as team, rating FROM ODI_BATTER_RANKINGS ORDER BY ranking LIMIT 5';
+        } else if (category === 'bowling') {
+            query = 'SELECT ranking as pos, player_name, country as team, rating FROM ODI_BOWLER_RANKINGS ORDER BY ranking LIMIT 5';
+        } else if (category === 'all-rounder') {
+            query = 'SELECT ranking as pos, player_name, country as team, rating FROM ODI_ALLROUNDER_RANKINGS ORDER BY ranking LIMIT 5';
+        }
+    } else if (format === 't20') {
+        if (category === 'batting') {
+            query = 'SELECT ranking as pos, player_name, country as team, rating FROM T20_BATTER_RANKINGS ORDER BY ranking LIMIT 5';
+        } else if (category === 'bowling') {
+            query = 'SELECT ranking as pos, player_name, country as team, rating FROM T20_BOWLER_RANKINGS ORDER BY ranking LIMIT 5';
+        } else if (category === 'all-rounder') {
+            query = 'SELECT ranking as pos, player_name, country as team, rating FROM T20_ALLROUNDER_RANKINGS ORDER BY ranking LIMIT 5';
+        }
+    }
+    
+    if (!query) {
+        return res.status(400).json({ message: "Invalid format or category" });
+    }
+    
+    conn.query(query, (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: "Problem getting rankings" });
+        }
+        
+        res.status(200).json(results);
+    });
+});
 
 module.exports = {
     getTeams,
     getPlayers,
-    getFab
+    getFab,
+    getPRank
 }

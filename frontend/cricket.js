@@ -425,3 +425,145 @@ if (document.getElementById("Fab4-container")) {
 }
 
 const currentPage = window.location.href;
+
+// Dynamic Rankings Loading
+const loadRankings = async (format, category) => {
+  try {
+    const response = await axios.get(`http://localhost:5000/api/team/playerrank?format=${format}&category=${category}`);
+    const rankings = response.data;
+    
+    // Find the correct table to update
+    const tableBody = document.querySelector(`#${format}-${category} .rankings-table tbody`);
+    
+    if (!tableBody) {
+      console.error(`Table not found for ${format}-${category}`);
+      return;
+    }
+    
+    // Clear existing rows
+    tableBody.innerHTML = '';
+    
+    // Populate with new data
+    rankings.forEach((player, index) => {
+      const row = document.createElement('tr');
+      
+      // Format position with leading zeros
+      const position = String(player.pos).padStart(2, '0');
+      
+      // Split player name into first and last name
+      const nameParts = player.player_name.split(' ');
+      const firstName = nameParts[0];
+      const lastName = nameParts.slice(1).join(' ');
+      
+      // Get flag image based on country
+      const flagImage = getFlagImage(player.team);
+      
+      row.innerHTML = `
+        <td class="pos">${position}</td>
+        <td class="team">
+          <img src="${flagImage}" alt="${player.team}" class="team-flag" />
+          <span class="team-name">${player.team.toUpperCase()}</span>
+        </td>
+        <td class="players">
+          <span class="player-name">${firstName}</span>
+          <span class="player-surname">${lastName.toUpperCase()}</span>
+        </td>
+        <td class="rating">${player.rating}</td>
+      `;
+      
+      tableBody.appendChild(row);
+    });
+    
+  } catch (error) {
+    console.error('Error loading rankings:', error);
+  }
+};
+
+// Helper function to get flag image based on country
+const getFlagImage = (country) => {
+  const flagMap = {
+    'ENGLAND': 'Flag-England.webp',
+    'NEW ZEALAND': 'nz flag1.jpg',
+    'AUSTRALIA': 'australia.jpg',
+    'INDIA': 'Flag_of_India.svg',
+    'SOUTH AFRICA': 'Flag-South-Africa.webp',
+    'BANGLADESH': 'Flag_of_Bangladesh.svg.webp',
+    'PAKISTAN': 'Flag_of_Pakistan.svg.webp',
+    'AFGHANISTAN': 'afg flag.jpg',
+    'WEST INDIES': 'West-Indies-Flag.png',
+    'SRI LANKA': 'srilanka flag.jpg',
+    'NEPAL': 'nepal.jpg'
+  };
+  
+  return flagMap[country.toUpperCase()] || 'default-flag.png';
+};
+
+// Load initial rankings when page loads (only if on ranking page)
+if (document.querySelector('.rankings-section')) {
+  // Load initial data for Test batting (default active tab)
+  document.addEventListener('DOMContentLoaded', function() {
+    loadRankings('test', 'batting');
+  });
+  
+  // Update the existing tab switching code to load rankings dynamically
+  const formatTabs = document.querySelectorAll('.format-tab');
+  const rankingContents = document.querySelectorAll('.rankings-content');
+
+  formatTabs.forEach(tab => {
+    tab.addEventListener('click', function () {
+      const format = this.getAttribute('data-format');
+
+      formatTabs.forEach(t => t.classList.remove('active'));
+      rankingContents.forEach(content => content.classList.remove('active'));
+
+      this.classList.add('active');
+      const targetRankingContent = document.getElementById(`${format}-rankings`);
+      if (targetRankingContent) {
+        targetRankingContent.classList.add('active');
+
+        const categoryTabs = targetRankingContent.querySelectorAll('.category-tab');
+        const categoryContents = targetRankingContent.querySelectorAll('.category-content');
+
+        categoryTabs.forEach(t => t.classList.remove('active'));
+        categoryContents.forEach(content => content.classList.remove('active'));
+
+        const firstCategoryTab = targetRankingContent.querySelector('.category-tab');
+        if (firstCategoryTab) {
+          firstCategoryTab.classList.add('active');
+          const initialCategory = firstCategoryTab.getAttribute('data-category');
+          const initialCategoryContent = document.getElementById(`${format}-${initialCategory}`);
+          if (initialCategoryContent) {
+            initialCategoryContent.classList.add('active');
+          }
+          // Load rankings for the new format and category
+          loadRankings(format, initialCategory);
+        }
+      }
+    });
+  });
+
+  rankingContents.forEach(rankingSection => {
+    const categoryTabs = rankingSection.querySelectorAll('.category-tab');
+    const categoryContents = rankingSection.querySelectorAll('.category-content');
+
+    categoryTabs.forEach(tab => {
+      tab.addEventListener('click', function () {
+        const category = this.getAttribute('data-category');
+        const formatId = this.closest('.rankings-content').id;
+        const format = formatId.replace('-rankings', '');
+
+        categoryTabs.forEach(t => t.classList.remove('active'));
+        categoryContents.forEach(content => content.classList.remove('active'));
+
+        this.classList.add('active');
+        const targetCategoryContent = document.getElementById(`${format}-${category}`);
+        if (targetCategoryContent) {
+          targetCategoryContent.classList.add('active');
+        }
+        
+        // Load rankings for the selected format and category
+        loadRankings(format, category);
+      });
+    });
+  });
+}
