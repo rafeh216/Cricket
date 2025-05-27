@@ -80,9 +80,46 @@ const getPRank = asyncHandler(async (req, res) => {
     });
 });
 
+const getTRank = async (req, res) => {
+  try {
+    console.log('getTRank called with query:', req.query);
+    const { format } = req.query;
+    
+    if (!format) {
+      return res.status(400).json({ message: 'Format parameter is required' });
+    }
+    
+    const validFormats = ['Test', 'ODI', 'T20I'];
+    if (!validFormats.includes(format)) {
+      return res.status(400).json({ message: 'Invalid format. Must be Test, ODI, or T20I' });
+    }
+    
+    const query = `
+      SELECT position, teamName, rating 
+      FROM teamRank 
+      WHERE format = ? 
+      ORDER BY position ASC
+    `;
+    
+    // If you're using a promisified version
+    const results = await conn.promise().query(query, [format]);
+    console.log(`Found ${results[0].length} results for ${format}`);
+    
+    res.status(200).json(results[0]); // results[0] contains the actual data
+    
+  } catch (error) {
+    console.error('Error in getTRank:', error);
+    res.status(500).json({ 
+      message: 'Server error', 
+      error: error.message 
+    });
+  }
+};
+
 module.exports = {
     getTeams,
     getPlayers,
     getFab,
-    getPRank
+    getPRank,
+    getTRank
 }

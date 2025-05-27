@@ -482,17 +482,17 @@ const loadRankings = async (format, category) => {
 // Helper function to get flag image based on country
 const getFlagImage = (country) => {
   const flagMap = {
-    'ENGLAND': 'Flag-England.webp',
-    'NEW ZEALAND': 'nz flag1.jpg',
-    'AUSTRALIA': 'australia.jpg',
-    'INDIA': 'Flag_of_India.svg',
-    'SOUTH AFRICA': 'Flag-South-Africa.webp',
-    'BANGLADESH': 'Flag_of_Bangladesh.svg.webp',
-    'PAKISTAN': 'Flag_of_Pakistan.svg.webp',
-    'AFGHANISTAN': 'afg flag.jpg',
-    'WEST INDIES': 'West-Indies-Flag.png',
-    'SRI LANKA': 'srilanka flag.jpg',
-    'NEPAL': 'nepal.jpg'
+    'ENGLAND': 'Flag_of_England.jpg',
+    'NEW ZEALAND': 'Flag_of_New Zealand.jpg',
+    'AUSTRALIA': 'Flag_of_Australia.jpg',
+    'INDIA': 'Flag_of_India.jpg',
+    'SOUTH AFRICA': 'Flag_of_South Africa.jpg',
+    'BANGLADESH': 'Flag_of_Bangladesh.jpg',
+    'PAKISTAN': 'Flag_of_Pakistan.jpg',
+    'AFGHANISTAN': 'Flag_of_Afghanistan.jpg',
+    'WEST INDIES': 'Flag_of_West Indies.jpg',
+    'SRI LANKA': 'Flag_of_Sri Lanka.jpg',
+    'NEPAL': 'Flag_of_Nepal.jpg'
   };
   
   return flagMap[country.toUpperCase()] || 'default-flag.png';
@@ -566,4 +566,94 @@ if (document.querySelector('.rankings-section')) {
       });
     });
   });
+}
+
+
+// Team Rankings Functions
+const loadTeamRankings = async (format) => {
+  try {
+    const response = await axios.get(`http://localhost:5000/api/team/teamRank?format=${format}`);
+    const rankings = response.data;
+    
+    // Find the correct table body to update
+    const tableBody = document.getElementById(`${format.toLowerCase()}-rankings-tbody`);
+    
+    if (!tableBody) {
+      console.error(`Table body not found for ${format} rankings`);
+      return;
+    }
+    
+    // Clear existing rows
+    tableBody.innerHTML = '';
+    
+    // Populate with new data
+    rankings.forEach((team) => {
+      const row = document.createElement('tr');
+      
+      // Get flag image based on team name
+      const flagImage = getTeamFlagImage(team.teamName);
+      
+      row.innerHTML = `
+        <td>${team.position}</td>
+        <td><img src="${flagImage}" class="team-flag" />${team.teamName}</td>
+        <td>${team.rating}</td>
+      `;
+      
+      tableBody.appendChild(row);
+    });
+    
+  } catch (error) {
+    console.error(`Error loading ${format} team rankings:`, error);
+    
+    // Show error message in the table
+    const tableBody = document.getElementById(`${format.toLowerCase()}-rankings-tbody`);
+    if (tableBody) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="3" style="text-align: center; color: #red; padding: 20px;">
+            Failed to load ${format} rankings. Please try again later.
+          </td>
+        </tr>
+      `;
+    }
+  }
+};
+
+// Helper function to get flag image based on team name
+const getTeamFlagImage = (teamName) => {
+  const flagMap = {
+    'ENGLAND': 'Flag_of_England.jpg',
+    'NEW ZEALAND': 'Flag_of_New Zealand.jpg',
+    'AUSTRALIA': 'Flag_of_Australia.jpg',
+    'INDIA': 'Flag_of_India.jpg',
+    'SOUTH AFRICA': 'Flag_of_South Africa.jpg',
+    'BANGLADESH': 'Flag_of_Bangladesh.jpg',
+    'PAKISTAN': 'Flag_of_Pakistan.jpg',
+    'AFGHANISTAN': 'Flag_of_Afghanistan.jpg',
+    'WEST INDIES': 'Flag_of_West Indies.jpg',
+    'SRI LANKA': 'Flag_of_Sri Lanka.jpg',
+    'Ireland': 'Flag_of_Ireland.jpg'
+  };
+  
+  return flagMap[teamName.toUpperCase()] || 'default-flag.png';
+};
+
+// Load all team rankings when the team rankings page loads
+const initializeTeamRankings = () => {
+  if (document.getElementById('odi-rankings-tbody')) {
+    loadTeamRankings('ODI');
+  }
+  
+  if (document.getElementById('test-rankings-tbody')) {
+    loadTeamRankings('Test');
+  }
+  
+  if (document.getElementById('t20i-rankings-tbody')) {
+    loadTeamRankings('T20I');
+  }
+};
+
+// Call the initialization function when DOM is loaded (only for team rankings page)
+if (window.location.pathname.includes('teamrank.html') || document.getElementById('odi-rankings-tbody')) {
+  document.addEventListener('DOMContentLoaded', initializeTeamRankings);
 }
