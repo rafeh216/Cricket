@@ -5,7 +5,7 @@ const getTeams = asyncHandler(async (req, res) => {
     conn.query('SELECT * FROM TEAM', (err, results) => {
         if (err) {
             console.error(err)
-            return res.status(500).json({ message: "Problem getting players" })
+            return res.status(500).json({ message: "Problem getting Teams" })
         }
 
         res.status(200).json(results)
@@ -25,7 +25,7 @@ const getPlayers = asyncHandler(async (req, res) => {
 })
 
 const getFab = asyncHandler(async (req, res) => {
-    conn.query('SELECT player_name, TEST_RUNS, odi_runs, t20_runs FROM fabulous_four', (err, results) => {
+    conn.query('SELECT player_name, TEST_RUNS, odi_runs, t20_runs, des FROM fabulous_four', (err, results) => {
         if (err) {
             console.error(err)
             return res.status(500).json({ message: "Problem getting players" })
@@ -105,7 +105,7 @@ const getTRank = async (req, res) => {
     const results = await conn.promise().query(query, [format]);
     console.log(`Found ${results[0].length} results for ${format}`);
     
-    res.status(200).json(results[0]); // results[0] contains the actual data
+    res.status(200).json(results[0]);
     
   } catch (error) {
     console.error('Error in getTRank:', error);
@@ -115,11 +115,46 @@ const getTRank = async (req, res) => {
     });
   }
 };
-
+// Get all fixtures
+const getFixture = async (req, res) => {
+  try {
+    const query = `
+      SELECT 
+        fixture_id,
+        home_team_name,
+        away_team_name,
+        venue,
+        date,
+        time,
+        format,
+        match_title
+      FROM fixture 
+      ORDER BY date ASC, time ASC
+    `;
+    
+    const [fixtures] = await conn.promise().query(query);
+    
+    // Group fixtures by series/match_title
+    const groupedFixtures = fixtures.reduce((acc, fixture) => {
+      const seriesName = fixture.match_title;
+      if (!acc[seriesName]) {
+        acc[seriesName] = [];
+      }
+      acc[seriesName].push(fixture);
+      return acc;
+    }, {});
+    
+    res.status(200).json(groupedFixtures);
+  } catch (error) {
+    console.error('Error fetching fixtures:', error);
+    res.status(500).json({ message: 'Error fetching fixtures' });
+  }
+};
 module.exports = {
     getTeams,
     getPlayers,
     getFab,
     getPRank,
-    getTRank
+    getTRank,
+    getFixture
 }

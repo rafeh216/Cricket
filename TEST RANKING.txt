@@ -1,7 +1,37 @@
-CREATE TABLE teamRank (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    format ENUM('Test', 'ODI', 'T20I') NOT NULL,
-    position INT NOT NULL,
-    teamName VARCHAR(50) NOT NULL,
-    rating INT NOT NULL
+CREATE TABLE fixture (
+    fixture_id INT PRIMARY KEY AUTO_INCREMENT,
+    home_team_id INT NOT NULL,
+    away_team_id INT NOT NULL,
+    venue VARCHAR(255) NOT NULL,
+    home_team_name VARCHAR(100) NOT NULL,
+    away_team_name VARCHAR(100) NOT NULL,
+    date DATE NOT NULL,
+    time TIME NOT NULL,
+    format VARCHAR(50) NOT NULL,
+    match_title VARCHAR(200) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    -- Foreign key constraints for both teams
+    CONSTRAINT fk_fixture_home_team 
+        FOREIGN KEY (home_team_id) 
+        REFERENCES team(team_id)
+        ON DELETE RESTRICT
+        ON UPDATE RESTRICT,
+    
+    CONSTRAINT fk_fixture_away_team 
+        FOREIGN KEY (away_team_id) 
+        REFERENCES team(team_id)
+        ON DELETE RESTRICT
+        ON UPDATE RESTRICT,
+    
+    -- Ensure a team doesn't play against itself
+    CONSTRAINT chk_different_teams 
+        CHECK (home_team_id != away_team_id)
 );
+
+-- Create indexes for better query performance
+CREATE INDEX idx_fixture_home_team_id ON fixture(home_team_id);
+CREATE INDEX idx_fixture_away_team_id ON fixture(away_team_id);
+CREATE INDEX idx_fixture_date ON fixture(date);
+CREATE INDEX idx_fixture_venue ON fixture(venue);

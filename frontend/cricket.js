@@ -130,10 +130,10 @@ const getTeams = async () => {
             <div class="card-content">
               <h3 class="card-title">${team.team_name}</h3>
               <p class="card-description">
-                ${team.description}
+                ${team.des}
               </p>
               <div class="card-stats">
-                <span>World Cups: </span>
+                <span>World Cups:${team.world_cups_won} </span>
                 <span>ICC Ranking: ${team.odi_ranking}</span>
               </div>
             </div>
@@ -399,7 +399,7 @@ const getFab = async () => {
           <div class="card-content">
             <h3 class="card-title">${fab.player_name}</h3>
             <p class="card-description">
-              The modern master known for run chases and passion.
+              ${fab.des}
             </p>
             <div class="card-stats">
               <span>Test: ${fab.TEST_RUNS}</span>
@@ -412,18 +412,135 @@ const getFab = async () => {
       fabcontainer.innerHTML += html;
     });
 
-    initializeCarousel(); 
+    // Initialize Fab Four carousel specifically
+    initializeFabFourCarousel(); 
 
   } catch (err) {
     console.error('Error fetching Fab 4 players:', err);
   }
 };
 
+// Separate carousel function specifically for Fab Four
+function initializeFabFourCarousel() {
+  const fabCarouselContainer = document.querySelector(".carousel-section .carousel-container");
+  
+  if (!fabCarouselContainer) return;
+
+  const carousel = fabCarouselContainer.querySelector(".carousel");
+  const cards = Array.from(fabCarouselContainer.querySelectorAll(".carousel-card"));
+  
+  if (!cards.length || !carousel) return;
+
+  const dots = fabCarouselContainer.querySelectorAll(".carousel-dot");
+  const leftArrow = fabCarouselContainer.querySelector(".carousel-arrow-left");
+  const rightArrow = fabCarouselContainer.querySelector(".carousel-arrow-right");
+
+  const totalCards = cards.length;
+  const cardWidth = 380;
+  const cardGap = 20;
+  let currentIndex = 0;
+  let autoSlideTimer;
+
+  // Setup cards styling
+  cards.forEach(card => {
+    card.style.width = `${cardWidth}px`;
+    card.style.flexShrink = '0';
+    card.style.flexGrow = '0';
+    card.style.margin = `0 ${cardGap / 2}px`;
+  });
+
+  carousel.style.display = 'inline-flex';
+  carousel.style.transition = 'transform 0.3s ease';
+
+  function updateCarousel() {
+    const containerWidth = fabCarouselContainer.offsetWidth;
+    const centerPosition = (containerWidth / 2) - (cardWidth / 2);
+    const offset = centerPosition - (currentIndex * (cardWidth + cardGap));
+
+    carousel.style.transform = `translateX(${offset}px)`;
+
+    // Update card scaling and active state
+    cards.forEach((card, idx) => {
+      card.classList.remove("active");
+      if (idx === currentIndex) {
+        card.classList.add("active");
+        card.style.transform = "scale(1.05)";
+        card.style.zIndex = "10";
+      } else {
+        card.style.transform = "scale(1)";
+        card.style.zIndex = "1";
+      }
+    });
+
+    // Update dots
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle("active", idx === currentIndex);
+    });
+  }
+
+  function goToPrevious() {
+    currentIndex = currentIndex === 0 ? totalCards - 1 : currentIndex - 1;
+    updateCarousel();
+    resetAutoSlide();
+  }
+
+  function goToNext() {
+    currentIndex = currentIndex === totalCards - 1 ? 0 : currentIndex + 1;
+    updateCarousel();
+    resetAutoSlide();
+  }
+
+  function startAutoSlide() {
+    stopAutoSlide();
+    autoSlideTimer = setInterval(goToNext, 5000);
+  }
+
+  function stopAutoSlide() {
+    if (autoSlideTimer) {
+      clearInterval(autoSlideTimer);
+      autoSlideTimer = null;
+    }
+  }
+
+  function resetAutoSlide() {
+    stopAutoSlide();
+    startAutoSlide();
+  }
+
+  // Event listeners
+  if (leftArrow) leftArrow.addEventListener("click", goToPrevious);
+  if (rightArrow) rightArrow.addEventListener("click", goToNext);
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      currentIndex = index;
+      updateCarousel();
+      resetAutoSlide();
+    });
+  });
+
+  cards.forEach((card, index) => {
+    card.addEventListener("click", () => {
+      if (index !== currentIndex) {
+        currentIndex = index;
+        updateCarousel();
+        resetAutoSlide();
+      }
+    });
+  });
+
+  fabCarouselContainer.addEventListener("mouseenter", stopAutoSlide);
+  fabCarouselContainer.addEventListener("mouseleave", startAutoSlide);
+
+  // Initialize
+  updateCarousel();
+  startAutoSlide();
+}
+
 // Only call getFab if we're on the home page
 if (document.getElementById("Fab4-container")) {
   getFab();
 }
-
 const currentPage = window.location.href;
 
 // Dynamic Rankings Loading
@@ -656,4 +773,131 @@ const initializeTeamRankings = () => {
 // Call the initialization function when DOM is loaded (only for team rankings page)
 if (window.location.pathname.includes('teamrank.html') || document.getElementById('odi-rankings-tbody')) {
   document.addEventListener('DOMContentLoaded', initializeTeamRankings);
+}
+
+// Fixtures Functions
+const fixturesContainer = document.getElementById("fixtures-container");
+
+const getFixtures = async () => {
+  try {
+    const response = await axios.get('http://localhost:5000/api/team/Fixture');
+    const groupedFixtures = response.data;
+    
+    // Clear loading message
+    fixturesContainer.innerHTML = '';
+    
+    // Check if there are any fixtures
+    if (Object.keys(groupedFixtures).length === 0) {
+      fixturesContainer.innerHTML = '<div class="no-fixtures">No upcoming fixtures available.</div>';
+      return;
+    }
+    
+    // Loop through each series
+    Object.entries(groupedFixtures).forEach(([seriesName, fixtures]) => {
+      const seriesSection = document.createElement('section');
+      seriesSection.className = 'series-section';
+      
+      seriesSection.innerHTML = `
+        <h2 class="series-heading">${seriesName}</h2>
+        <div class="match-list">
+          ${fixtures.map(fixture => createMatchCard(fixture)).join('')}
+        </div>
+      `;
+      
+      fixturesContainer.appendChild(seriesSection);
+    });
+    
+    // Reinitialize detail buttons after loading fixtures
+    initializeDetailButtons();
+    
+  } catch (error) {
+    console.error('Error fetching fixtures:', error);
+    fixturesContainer.innerHTML = '<div class="error-message">Failed to load fixtures. Please try again later.</div>';
+  }
+};
+
+const createMatchCard = (fixture) => {
+  // Format date
+  const matchDate = new Date(fixture.date);
+  const formattedDate = matchDate.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  
+  // Format time
+  const matchTime = fixture.time;
+  
+  // Get team flags
+  const homeTeamFlag = getTeamFlagForFixture(fixture.home_team_name);
+  const awayTeamFlag = getTeamFlagForFixture(fixture.away_team_name);
+  
+  return `
+    <div class="match-card">
+      <div class="match-details">
+        <div class="match-info">
+          <span class="match-format">${fixture.format}</span>
+          <span class="match-date">${formattedDate}</span>
+          <span class="match-time">${matchTime}</span>
+        </div>
+        <div class="match-teams">
+          <div class="team">
+            <img
+              src="${homeTeamFlag}"
+              alt="${fixture.home_team_name} Flag"
+              class="team-flag"
+            />
+            <span class="team-name">${fixture.home_team_name}</span>
+          </div>
+          <span class="vs">vs</span>
+          <div class="team">
+            <img
+              src="${awayTeamFlag}"
+              alt="${fixture.away_team_name} Flag"
+              class="team-flag"
+            />
+            <span class="team-name">${fixture.away_team_name}</span>
+          </div>
+        </div>
+        <div class="match-venue">Venue: ${fixture.venue}</div>
+      </div>
+      <div class="match-action">
+        <button class="details-button" data-fixture-id="${fixture.fixture_id}">Match Details</button>
+      </div>
+    </div>
+  `;
+};
+
+const getTeamFlagForFixture = (teamName) => {
+  const flagMap = {
+    'ENGLAND': 'Flag_of_England.jpg',
+    'NEW ZEALAND': 'Flag_of_New Zealand.jpg',
+    'AUSTRALIA': 'Flag_of_Australia.jpg',
+    'INDIA': 'Flag_of_India.jpg',
+    'SOUTH AFRICA': 'Flag_of_South Africa.jpg',
+    'BANGLADESH': 'Flag_of_Bangladesh.jpg',
+    'PAKISTAN': 'Flag_of_Pakistan.jpg',
+    'AFGHANISTAN': 'Flag_of_Afghanistan.jpg',
+    'WEST INDIES': 'Flag_of_West Indies.jpg',
+    'SRI LANKA': 'Flag_of_Sri Lanka.jpg',
+    'Ireland': 'Flag_of_Ireland.jpg'
+  };
+  
+  return flagMap[teamName.toUpperCase()] || 'default-flag.png';
+};
+
+const initializeDetailButtons = () => {
+  const detailButtons = document.querySelectorAll('.details-button');
+  detailButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      const fixtureId = this.getAttribute('data-fixture-id');
+      // You can expand this to show more detailed information
+      alert(`Match Details for Fixture ID: ${fixtureId}\nMatch Yet To Begin`);
+    });
+  });
+};
+
+// Load fixtures when the fixtures page loads
+if (document.getElementById("fixtures-container")) {
+  document.addEventListener('DOMContentLoaded', getFixtures);
 }
